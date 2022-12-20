@@ -200,17 +200,20 @@ namespace CsConsoleGame
             Dexterity++;
             ChangeMaximumHealth(2);
             FullHeal();
+
             if (Lvl % 10 == 0) {
                 CritChance += 0.3F;
                 CritMult += 0.10F;
             }
 
-            if (Lvl % 3 == 0) {
-                switch (Class) {
-                    case 1: Strength++; break;
-                    case 2: Intelligents++; break;
-                    case 3: Dexterity++; break;
-                }
+            if (Lvl % 3 == 0) IncreaseClassStat();
+        }
+
+        private void IncreaseClassStat() {
+            switch (Class) {
+                case 1: Strength++; break;
+                case 2: Intelligents++; break;
+                case 3: Dexterity++; break;
             }
         }
     }
