@@ -7,19 +7,13 @@ using System.Threading.Tasks;
 
 namespace CsConsoleGame
 {
-    internal class Character
+    abstract class Character
     {
         // class
 
         // member
 
         // const
-        /// <summary>
-        /// Creats an new charater from scratch
-        /// </summary>
-        public Character() {
-            
-        }
 
         // meth
         public string Name { get; set; }
