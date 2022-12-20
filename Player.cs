@@ -22,47 +22,6 @@ namespace CsConsoleGame
         float _CritMult = 0;
         short[] _Health = new short[2];
 
-        public override ushort Strength {
-            get => _Strength; set {
-                if (_Strength >= MAXSTATVALUE) _Strength = MAXSTATVALUE;
-                _Strength = value;
-            }
-        }
-
-        public override ushort Intelligents {
-            get => _Intelligents; set {
-                if (_Intelligents >= MAXSTATVALUE) _Intelligents = MAXSTATVALUE;
-                _Intelligents = value;
-            }
-        }
-
-        public override ushort Dexterity {
-            get => _Dexterity; set {
-                if (_Dexterity >= MAXSTATVALUE) _Dexterity = MAXSTATVALUE;
-                _Dexterity = value;
-            }
-        }
-        public override float CritChance {
-            get => _CritChance; set {
-                if (_CritChance >= MAXCRITCHANCE) _CritChance = MAXCRITCHANCE;
-                _CritChance = value;
-            }
-        }
-        public override float CritMult {
-            get => _CritMult; set {
-                if (_CritMult >= MAXCRITMULT) _CritMult = MAXCRITMULT;
-                _CritMult = value;
-            }
-        }
-        public override short[] Health {
-            get => _Health; set {
-                for (byte i = 0; i < _Health.Length; i++) {
-                    if (_Health[i] >= MAXHEALTH) _Health[i] = MAXHEALTH;
-                    else _Health = value;
-                }
-            }
-        }
-
         // const
         /// <summary>
         /// creates an new Player
@@ -124,6 +83,47 @@ namespace CsConsoleGame
         /// 3 = thief
         /// </summary>
         public byte Class { get; set; }
+
+        public override ushort Strength {
+            get => _Strength; set {
+                if (_Strength >= MAXSTATVALUE) _Strength = MAXSTATVALUE;
+                _Strength = value;
+            }
+        }
+
+        public override ushort Intelligents {
+            get => _Intelligents; set {
+                if (_Intelligents >= MAXSTATVALUE) _Intelligents = MAXSTATVALUE;
+                _Intelligents = value;
+            }
+        }
+
+        public override ushort Dexterity {
+            get => _Dexterity; set {
+                if (_Dexterity >= MAXSTATVALUE) _Dexterity = MAXSTATVALUE;
+                _Dexterity = value;
+            }
+        }
+        public override float CritChance {
+            get => _CritChance; set {
+                if (_CritChance >= MAXCRITCHANCE) _CritChance = MAXCRITCHANCE;
+                _CritChance = value;
+            }
+        }
+        public override float CritMult {
+            get => _CritMult; set {
+                if (_CritMult >= MAXCRITMULT) _CritMult = MAXCRITMULT;
+                _CritMult = value;
+            }
+        }
+        public override short[] Health {
+            get => _Health; set {
+                for (byte i = 0; i < _Health.Length; i++) {
+                    if (_Health[i] >= MAXHEALTH) _Health[i] = MAXHEALTH;
+                    else _Health = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Creates an new Player with Name and Class.<br />
