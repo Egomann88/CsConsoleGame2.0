@@ -8,9 +8,60 @@ namespace CsConsoleGame
 {
     internal class Player : Character {
         // class
+        const ushort MAXSTATVALUE = 300;
+        const float MAXCRITCHANCE = 60;
+        const float MAXCRITMULT = 3;
+        const short MAXHEALTH = 250;
         const byte MAXLVL = 100;
 
         // member
+        ushort _Strength = 0;
+        ushort _Intelligents = 0;
+        ushort _Dexterity = 0;
+        float _CritChance = 0;
+        float _CritMult = 0;
+        short[] _Health = new short[2];
+
+        public override ushort Strength {
+            get => _Strength; set {
+                if (_Strength >= MAXSTATVALUE) _Strength = MAXSTATVALUE;
+                _Strength = value;
+            }
+        }
+
+        public override ushort Intelligents {
+            get => _Intelligents; set {
+                if (_Intelligents >= MAXSTATVALUE) _Intelligents = MAXSTATVALUE;
+                _Intelligents = value;
+            }
+        }
+
+        public override ushort Dexterity {
+            get => _Dexterity; set {
+                if (_Dexterity >= MAXSTATVALUE) _Dexterity = MAXSTATVALUE;
+                _Dexterity = value;
+            }
+        }
+        public override float CritChance {
+            get => _CritChance; set {
+                if (_CritChance >= MAXCRITCHANCE) _CritChance = MAXCRITCHANCE;
+                _CritChance = value;
+            }
+        }
+        public override float CritMult {
+            get => _CritMult; set {
+                if (_CritMult >= MAXCRITMULT) _CritMult = MAXCRITMULT;
+                _CritMult = value;
+            }
+        }
+        public override short[] Health {
+            get => _Health; set {
+                for (byte i = 0; i < _Health.Length; i++) {
+                    if (_Health[i] >= MAXHEALTH) _Health[i] = MAXHEALTH;
+                    else _Health = value;
+                }
+            }
+        }
 
         // const
         /// <summary>
@@ -168,13 +219,14 @@ namespace CsConsoleGame
         }
 
         /// <summary>
-        /// Increases Level and Exp, which is needed for next lvl<br />
+        /// Increases Level and Exp (if possible), which is needed for next lvl<br />
         /// Reduces current Exp with the Exp need for this level
         /// </summary>
         public void IncreaseLvl() {
             // if lvl 100 is reached, no more leveling
             if (Lvl >= MAXLVL) {
                 Lvl = MAXLVL;
+                Exp = new uint[2] { 0, 0 };
                 return;
             }
 
@@ -215,6 +267,44 @@ namespace CsConsoleGame
                 case 2: Intelligents++; break;
                 case 3: Dexterity++; break;
             }
+        }
+
+        // *************** saves *************** //
+
+        /// <summary>
+        /// creates the character_save directory is it not exsists
+        /// </summary>
+        public static void CreateDirectory() {
+            string path = Directory.GetCurrentDirectory() + @"\character_saves\";
+
+            Directory.CreateDirectory(path);
+        }
+
+        /// <summary>
+        /// Checks if the loaded save wasnt modified.<br />
+        /// If it was modified, it cannot be loaded
+        /// </summary>
+        /// <param name="c">characer object</param>
+        /// <returns>true - if character is valid / flase - if not</returns>
+        private static bool CharacterValid(Player c) {
+            bool nameValid = false, classValid = false;
+
+            if (c.Name == "" || !InValidSign(c.Name)) nameValid = true;
+            if (c.Class > 0 && c.Class < 4) classValid = true;
+
+            c.Strength = c.Strength;
+            c.Intelligents = c.Intelligents;
+            c.Dexterity = c.Dexterity;
+            c.CritChance = c.CritChance;
+            c.CritMult = c.CritMult;
+            c.Health = c.Health;
+            c.Gold = c.Gold;
+            c.Exp = c.Exp;
+            c.Lvl = c.Lvl;
+
+            if (nameValid && classValid) return true;
+
+            return false;
         }
     }
 }

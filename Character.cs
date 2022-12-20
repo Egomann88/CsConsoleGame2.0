@@ -18,21 +18,21 @@ namespace CsConsoleGame
         // meth
         public string Name { get; set; }
 
-        public ushort Strength { get; set; }
+        virtual public ushort Strength { get; set; }
 
-        public ushort Intelligents { get; set; }
+        virtual public ushort Intelligents { get; set; }
 
-        public ushort Dexterity { get; set; }
+        virtual public ushort Dexterity { get; set; }
 
-        public float CritChance { get; set; }
+        virtual public float CritChance { get; set; }
 
-        public float CritMult { get; set; }
+        virtual public float CritMult { get; set; }
 
         /// <summary>
         /// 0 = current hp<br />
         /// 1 = max hp
         /// </summary>
-        public short[] Health { get; set; }
+        virtual public short[] Health { get; set; }
 
         public int Gold { get; set; }
 
