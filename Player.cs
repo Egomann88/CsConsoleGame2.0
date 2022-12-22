@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CsConsoleGame
@@ -75,12 +76,12 @@ namespace CsConsoleGame
                 default:  break;
             }
         }
+        
+        private Player() { }
 
         // meth
         /// <summary>
-        /// 1 = warrior
-        /// 2 = mage
-        /// 3 = thief
+        /// 1 = warrior, 2 = mage, 3 = thief
         /// </summary>
         public byte Class { get; set; }
 
@@ -116,6 +117,9 @@ namespace CsConsoleGame
                 _CritMult = value;
             }
         }
+        /// <summary>
+        /// 0 = current Health, 1 = max Health
+        /// </summary>
         public override short[] Health {
             get => _Health; set {
                 for (byte i = 0; i < _Health.Length; i++) {
@@ -145,7 +149,7 @@ namespace CsConsoleGame
         }
 
         /// <summary>
-        /// overrides the old character name
+        /// overrides the old Player name
         /// </summary>
         /// <returns>(new) name</returns>
         public static string ChangeName() {
@@ -244,7 +248,7 @@ namespace CsConsoleGame
 
         /// <summary>
         /// Increases all stats by one (exept for class stat - increased by 2)<br />
-        /// Heal the Character to max HP
+        /// Heal the Player to max HP
         /// </summary>
         private void IncreaseStats() {
             Strength++;
@@ -272,26 +276,180 @@ namespace CsConsoleGame
         // *************** saves *************** //
 
         /// <summary>
-        /// creates the character_save directory is it not exsists
+        /// creates the Player_save directory is it not exsists
         /// </summary>
         public static void CreateDirectory() {
-            string path = Directory.GetCurrentDirectory() + @"\character_saves\";
+            string path = Directory.GetCurrentDirectory() + @"\savegames\";
 
             Directory.CreateDirectory(path);
         }
 
         /// <summary>
+        /// Saves Json File with current Player Stats<br />
+        /// https://www.nuget.org/packages/System.Text.Json<br />
+        /// </summary>
+        /// <param name="c">current Player</param>
+        public static void SavePlayer(Character c) {
+            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            string json = JsonSerializer.Serialize(c);
+            
+            File.WriteAllText(path + c.Name + @".json", json);  // save in .json file
+            Console.Clear();
+
+            Thread.Sleep(600);
+        }
+
+        /// <summary>
+        /// Deletes rageted json file
+        /// </summary>
+        /// <param name="name">Player / File name</param>
+        public static void DeleteCharacer(string name) {
+            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            File.Delete(path + name + ".json");
+        }
+
+        /// <summary>
+        /// checsk whether there are any Player save files available to load<br />
+        /// If there are same, they will return true
+        /// </summary>
+        /// <returns>true - if save files are available / false - if not</returns>
+        public static bool HasPlayers() {
+            // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
+            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            DirectoryInfo PlayerSaves = new DirectoryInfo(path);
+            FileInfo[] Files = PlayerSaves.GetFiles();
+
+            // https://stackoverflow.com/questions/24518299/if-file-directory-is-empty-c-sharp
+            if (Files.Length == 0) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// gets all files from save directory, convert them to strings and fills them in a list
+        /// </summary>
+        /// <returns>list with all saves</returns>
+        public static List<Player> SaveList() {
+            // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
+            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            DirectoryInfo PlayerSaves = new DirectoryInfo(path);
+            FileInfo[] Files = PlayerSaves.GetFiles();
+            List<Player> SavesList = new List<Player>();
+
+
+            // fill Player list
+            // https://www.tutorialsteacher.com/articles/convert-json-string-to-object-in-csharp
+            foreach (FileInfo i in Files) {
+                string jsonPlayerData = File.ReadAllText(path + i);
+                SavesList.Add(JsonSerializer.Deserialize<Player>(jsonPlayerData));
+            }
+
+            return SavesList;
+        }
+
+        /// <summary>
+        /// Lists all available players (not more than 255) with Name, Class and Level
+        /// </summary>
+        /// <param name="players">list of / all players</param>
+        private static void ShowPlayers(Player[] players) {
+            Console.WriteLine("Wählen Sie einen Charakter aus:");
+
+            for (byte i = 0; i < players.Length; i++) {
+                if (i == 255) break;    // dont list more than 255 saves
+                Console.WriteLine("{0}) {1}, {2} (Level: {3})",
+                  i + 1, players[i].Name, players[i].GetClassName(), players[i].Lvl
+                );
+            }
+        }
+
+        /// <summary>
+        /// Simple input field to tell which save should be loaded<br />
+        /// User cannot enter higher num, than listed saves
+        /// </summary>
+        /// <param name="player">list of / all players</param>
+        /// <returns>index of player in array</returns>
+        private static byte ChoosePlayer(Player[] player) {
+            byte input = 0;
+
+            do {
+                Console.Write("Eingabe: ");
+            } while (!byte.TryParse(Console.ReadLine(), out input) && input >= player.Length + 1 && input == 0);
+
+            return (byte)(input - 1);   // return array index
+        }
+
+        /// <summary>
+        /// checks if save is correct and can be loaded
+        /// </summary>
+        /// <param name="player">save which should be loaded</param>
+        /// <returns></returns>
+        private static bool CanLoadPlayer(Player player) {
+            if (PlayerValid(player)) return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if save can be loaded, if so it returns the save/player<br />
+        /// </summary>
+        /// <param name="playerId">player id/index in array</param>
+        /// <param name="players">player array</param>
+        /// <returns>player/save</returns>
+        /// <exception cref="IndexOutOfRangeException">corrupt / edited savefile</exception>
+        private static Player Prepare2Load(byte playerId, Player[] players) {
+            if (CanLoadPlayer(players[playerId])) return LoadPlayer(players[playerId]);
+            else {  // save file is edited
+                string error = "Die geladene Charakterdatei ist korrput.";
+                Console.WriteLine(error);
+                Thread.Sleep(800);
+                throw new IndexOutOfRangeException(error);
+            }
+        }
+
+        /// <summary>
+        /// Return the save
+        /// </summary>
+        /// <param name="player">loaded player/save</param>
+        /// <returns>player/save</returns>
+        private static Player LoadPlayer(Player player) {
+            return player;
+        }
+
+        /// <summary>
+        /// Gets an List of all saves and lets the user load or delete one
+        /// </summary>
+        /// <param name="delete">delete save - yes / no</param>
+        /// <returns>savegame or error</returns>
+        public static Player GetPlayers(bool delete) {
+            List<Player> charactersList = SaveList();
+            byte choosenCharacterId = 0;
+
+            // list all characters
+            Player[] characters = charactersList.ToArray(); // convert list to array
+            ShowPlayers(characters); // list all characters
+
+            choosenCharacterId = ChoosePlayer(characters); // user input
+
+            if(delete) {
+                DeleteCharacer(characters[choosenCharacterId].Name);
+                return new Player(); // useless only for return value
+            } else {
+                return Prepare2Load(choosenCharacterId, characters);
+            }
+        }
+
+        /// <summary>
         /// Checks if the loaded save wasnt modified.<br />
-        /// If it was modified, it cannot be loaded
+        /// If class or name are modified, save cannot be loaded<br />
         /// </summary>
         /// <param name="c">characer object</param>
-        /// <returns>true - if character is valid / flase - if not</returns>
-        private static bool CharacterValid(Player c) {
+        /// <returns>true - if Player is valid / flase - if not</returns>
+        private static bool PlayerValid(Player c) {
             bool nameValid = false, classValid = false;
 
             if (c.Name == "" || !InValidSign(c.Name)) nameValid = true;
-            if (c.Class > 0 && c.Class < 4) classValid = true;
+            if (c.Class is 1 or 2 or 3) classValid = true;
 
+            // overwrite invalid stats, if nessessary
             c.Strength = c.Strength;
             c.Intelligents = c.Intelligents;
             c.Dexterity = c.Dexterity;
