@@ -14,7 +14,7 @@ namespace CsConsoleGame
         protected const byte ULTHITBONUS = 20;  // 20 % hit bonus for Ultimate
         protected const int SHORTTIMEOUT = 800;
         protected const int TIMEOUT = 1200;
-        protected short[] CHARACTERCOOLDOWN = new short[] { HEALCOOLDOWN, ULTIMATECOOLDOWN };  // Heal, Ult
+        protected short[] PLAYERCOOLDOWN = new short[] { HEALCOOLDOWN, ULTIMATECOOLDOWN };  // Heal, Ult
         protected short[] ENEMYCOOLDOWN = new short[] { HEALCOOLDOWN, ULTIMATECOOLDOWN }; // Heal, Ult
 
         // mem
@@ -203,7 +203,7 @@ namespace CsConsoleGame
 
             coolDown = coolDown.Select(x => --x).ToArray();   // decrease cooldowns by one
 
-            CHARACTERCOOLDOWN = coolDown;  // save cooldowns for next round
+            PLAYERCOOLDOWN = coolDown;  // save cooldowns for next round
 
             return flee;
         }
@@ -381,7 +381,7 @@ namespace CsConsoleGame
         /// <param name="isCharacter">true if its the Characters cooldown. If not -> false</param>
         /// <returns>coolodown -> short[]</returns>
         protected short[] GetCoolDown(bool isCharacter) {
-            short[] coolDown = isCharacter ? CHARACTERCOOLDOWN : ENEMYCOOLDOWN;
+            short[] coolDown = isCharacter ? PLAYERCOOLDOWN : ENEMYCOOLDOWN;
 
             if (coolDown[0] <= 0) coolDown[0] = 0;  // does not allow the counter to go under 0
             if (coolDown[1] <= 0) coolDown[1] = 0;
