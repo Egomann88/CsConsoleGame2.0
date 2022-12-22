@@ -68,7 +68,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(10 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(10 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(8 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(8 * multiplier)),
+                        Convert.ToUInt16(Math.Round(8 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // assasin
@@ -84,7 +87,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(16 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(19 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(14 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(14 * multiplier)),
+                        Convert.ToUInt16(Math.Round(14 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // bandit
@@ -100,7 +106,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(18 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(21 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(16 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(16 * multiplier)),
+                        Convert.ToUInt16(Math.Round(16 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // witch
@@ -116,7 +125,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(13 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(13 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(23 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(23 * multiplier)),
+                        Convert.ToUInt16(Math.Round(23 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // mercenary
@@ -132,7 +144,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(19 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(33 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(26 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(26 * multiplier)),
+                        Convert.ToUInt16(Math.Round(26 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // paladin
@@ -148,7 +163,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(26 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(38 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(26 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(26 * multiplier)),
+                        Convert.ToUInt16(Math.Round(26 * multiplier))
+                    };
                     IsDmgUlt = false;
                     break;
                 // plantara
@@ -164,7 +182,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(31 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(12 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(37 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(37 * multiplier)),
+                        Convert.ToUInt16(Math.Round(37 * multiplier))
+                    };
                     IsDmgUlt = false;
                     break;
                 // beserker
@@ -180,7 +201,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(43 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(68 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(72 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(72 * multiplier)),
+                        Convert.ToUInt16(Math.Round(72 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // Archmage
@@ -196,7 +220,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(35 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(70 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(80 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(80 * multiplier)),
+                        Convert.ToUInt16(Math.Round(80 * multiplier))
+                    };
                     IsDmgUlt = false;
                     break;
                 // grifin
@@ -212,7 +239,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(76 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(36 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(190 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(190 * multiplier)),
+                        Convert.ToUInt16(Math.Round(190 * multiplier))
+                    };
                     IsDmgUlt = false;
                     break;
                 // dragon
@@ -228,7 +258,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(66 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(160 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(150 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(150 * multiplier)),
+                        Convert.ToUInt16(Math.Round(150 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // demon
@@ -244,7 +277,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(74.4 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(140 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(180 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(180 * multiplier)),
+                        Convert.ToUInt16(Math.Round(180 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
                 // ashura
@@ -260,7 +296,10 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(60 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(150 * multiplier));
-                    Exp[0] = Convert.ToUInt16(Math.Round(240 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(240 * multiplier)),
+                        Convert.ToUInt16(Math.Round(240 * multiplier))
+                    };
                     IsDmgUlt = true;
                     break;
             }
