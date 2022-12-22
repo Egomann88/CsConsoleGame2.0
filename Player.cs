@@ -153,9 +153,10 @@ namespace CsConsoleGame
         /// </summary>
         /// <returns>(new) name</returns>
         public static string ChangeName() {
+            bool valid = false;
             string name = "";
 
-            while (name == "") {
+            while (!valid) {
                 Console.Clear();
                 Console.WriteLine("Geben Sie den Namen ihres Charakters ein:");
                 name = Console.ReadLine();
@@ -164,12 +165,17 @@ namespace CsConsoleGame
                     Console.WriteLine("\nIm Namen ist ein unerlaubtes Zeichen enthalten!");
                     Thread.Sleep(500);
                     continue;
+                } else if (IsDoubleName(name)) {
+                    Console.WriteLine("\nIhr benutzt denselben Namen zweimal. Das ist nicht möglich.");
+                    Thread.Sleep(500);
+                    continue;
                 } else if (name == "" || name == " ") {
                     Console.WriteLine("\nDer Name darf nicht leer sein!");
                     Thread.Sleep(500);
                     continue;
                 }
 
+                valid = true;
                 // convert to char array of the string
                 char[] letters = name.ToCharArray();
                 // upper case the first char
@@ -327,6 +333,23 @@ namespace CsConsoleGame
         public static void DeleteCharacer(string name) {
             string path = GetSaveDirectory();  // current Path
             File.Delete(path + name + ".json");
+        }
+
+        /// <summary>
+        /// Checks if the new players Name is already existing<br />
+        /// If its the case, than a new name must be choosen for the character
+        /// </summary>
+        /// <param name="playerName">name of current created character</param>
+        /// <returns>true if name is doubled / false if name is unique</returns>
+        public static bool IsDoubleName(string playerName) {
+            List<Player> list = SaveList();
+            Character[] players = list.ToArray();  // convert list to array
+
+            for (byte i = 0; i < players.Length; i++) {
+                if (playerName == players[i].Name) return true;
+            }
+
+            return false;
         }
 
         /// <summary>

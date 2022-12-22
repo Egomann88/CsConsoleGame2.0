@@ -99,7 +99,7 @@ do {
                 break;
             case '2': player.ShowPlayer(); continue;
             case '3': player = marketplace.OnMarket(); break;
-            case '4': player.Gold += 9999; player.Lvl += 42; player.Dexterity += 80; break;
+            //case '4': player.Gold += 9999; player.Lvl += 9; player.Strength += 80; break;
             case '6': player.Name = Player.ChangeName(); break;
             case '7': Player.SavePlayer(player); continue;  // call sensitive methods with classname
             case '8': chAlive = false; continue;
