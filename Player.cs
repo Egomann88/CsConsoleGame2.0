@@ -45,7 +45,7 @@ namespace CsConsoleGame
             Exp = new uint[2] { 0, 30 };
             Lvl = 1;
 
-            switch (cl) {
+            switch (Class) {
                 case 1: // warrior
                     Strength = 4;
                     Intelligents = 2;
@@ -77,7 +77,7 @@ namespace CsConsoleGame
             }
         }
         
-        private Player() { }
+        public Player() { }
 
         // meth
         /// <summary>
@@ -294,19 +294,13 @@ namespace CsConsoleGame
                 }
             }
 
-            /* 
-            for (byte i = 0; i < subDirectorys.Length + 1; i++) {
-                if (subDirectorys[i] == (path + @"\savegames")) savegamesDirectory = true;
-            }
-            */
-
             // if savegame folder does not exist -> create it
             if (!savegamesDirectory) {
                 Directory.CreateDirectory(path + @"\savegames\");            
             }
         }
 
-        private static string GetDirectory() {
+        private static string GetSaveDirectory() {
             CreateDirectory();
             return Directory.GetCurrentDirectory() + @"\savegames\";
         }
@@ -315,12 +309,12 @@ namespace CsConsoleGame
         /// Saves Json File with current Player Stats<br />
         /// https://www.nuget.org/packages/System.Text.Json<br />
         /// </summary>
-        /// <param name="c">current Player</param>
-        public static void SavePlayer(Character c) {
-            string path = GetDirectory();  // current Path
-            string json = JsonSerializer.Serialize(c);
+        /// <param name="p">current Player</param>
+        public static void SavePlayer(Player p) {
+            string path = GetSaveDirectory();  // current Path
+            string json = JsonSerializer.Serialize(p);
             
-            File.WriteAllText(path + c.Name + @".json", json);  // save in .json file
+            File.WriteAllText(path + p.Name + @".json", json);  // save in .json file
             Console.Clear();
 
             Thread.Sleep(600);
@@ -331,7 +325,7 @@ namespace CsConsoleGame
         /// </summary>
         /// <param name="name">Player / File name</param>
         public static void DeleteCharacer(string name) {
-            string path = GetDirectory();  // current Path
+            string path = GetSaveDirectory();  // current Path
             File.Delete(path + name + ".json");
         }
 
@@ -342,7 +336,7 @@ namespace CsConsoleGame
         /// <returns>true - if save files are available / false - if not</returns>
         public static bool HasPlayers() {
             // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
-            string path = GetDirectory();  // current Path
+            string path = GetSaveDirectory();  // current Path
             DirectoryInfo PlayerSaves = new(path);
             FileInfo[] Files = PlayerSaves.GetFiles();
 
@@ -357,16 +351,16 @@ namespace CsConsoleGame
         /// <returns>list with all saves</returns>
         public static List<Player> SaveList() {
             // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
-            string path = GetDirectory();  // current Path
-            DirectoryInfo PlayerSaves = new DirectoryInfo(path);
+            string path = GetSaveDirectory();  // current Path
+            DirectoryInfo PlayerSaves = new(path);
             FileInfo[] Files = PlayerSaves.GetFiles();
             List<Player> SavesList = new List<Player>();
 
 
             // fill Player list
             // https://www.tutorialsteacher.com/articles/convert-json-string-to-object-in-csharp
-            foreach (FileInfo i in Files) {
-                string jsonPlayerData = File.ReadAllText(path + i);
+            foreach (FileInfo i in Files) { 
+                string jsonPlayerData = File.ReadAllText(i.ToString());
                 SavesList.Add(JsonSerializer.Deserialize<Player>(jsonPlayerData));
             }
 
@@ -399,7 +393,7 @@ namespace CsConsoleGame
 
             do {
                 Console.Write("Eingabe: ");
-            } while (!byte.TryParse(Console.ReadLine(), out input) && input >= player.Length + 1 && input == 0);
+            } while (!byte.TryParse(Console.ReadLine(), out input) || input >= player.Length + 1 || input == 0);
 
             return (byte)(input - 1);   // return array index
         }
