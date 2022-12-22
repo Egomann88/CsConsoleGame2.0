@@ -283,17 +283,31 @@ namespace CsConsoleGame
         /// </summary>
         private static void CreateDirectory() {
             // create folder in current Directory
-            string path = Directory.GetCurrentDirectory() + @"\savegames\";
+            string path = Directory.GetCurrentDirectory();
+            string[] subDirectorys = Directory.GetDirectories(path);
+            bool savegamesDirectory = false;
 
-            Directory.CreateDirectory(path);
+            foreach (string subDirectory in subDirectorys) {
+                if (subDirectory == (path + @"\savegames")) {
+                    savegamesDirectory = true;
+                    break;
+                }
+            }
+
+            /* 
+            for (byte i = 0; i < subDirectorys.Length + 1; i++) {
+                if (subDirectorys[i] == (path + @"\savegames")) savegamesDirectory = true;
+            }
+            */
+
+            // if savegame folder does not exist -> create it
+            if (!savegamesDirectory) {
+                Directory.CreateDirectory(path + @"\savegames\");            
+            }
         }
 
         private static string GetDirectory() {
-            // if savegame folder does not exist -> create it
-            if ((Directory.GetCurrentDirectory() + @"\savegames\") == null) {
-                CreateDirectory();
-                return Directory.GetCurrentDirectory() + @"\savegames\";
-            }
+            CreateDirectory();
             return Directory.GetCurrentDirectory() + @"\savegames\";
         }
 
@@ -329,7 +343,7 @@ namespace CsConsoleGame
         public static bool HasPlayers() {
             // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
             string path = GetDirectory();  // current Path
-            DirectoryInfo PlayerSaves = new DirectoryInfo(path);
+            DirectoryInfo PlayerSaves = new(path);
             FileInfo[] Files = PlayerSaves.GetFiles();
 
             // https://stackoverflow.com/questions/24518299/if-file-directory-is-empty-c-sharp
