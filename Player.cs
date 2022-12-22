@@ -265,6 +265,9 @@ namespace CsConsoleGame
             if (Lvl % 3 == 0) IncreaseClassStat();
         }
 
+        /// <summary>
+        /// Increases class specific stat by 1
+        /// </summary>
         private void IncreaseClassStat() {
             switch (Class) {
                 case 1: Strength++; break;
@@ -420,20 +423,20 @@ namespace CsConsoleGame
         /// <param name="delete">delete save - yes / no</param>
         /// <returns>savegame or error</returns>
         public static Player GetPlayers(bool delete) {
-            List<Player> charactersList = SaveList();
-            byte choosenCharacterId = 0;
+            List<Player> playersList = SaveList();
+            byte choosenPlayerId = 0;
 
-            // list all characters
-            Player[] characters = charactersList.ToArray(); // convert list to array
-            ShowPlayers(characters); // list all characters
+            // list all players
+            Player[] players = playersList.ToArray(); // convert list to array
+            ShowPlayers(players); // list all players
 
-            choosenCharacterId = ChoosePlayer(characters); // user input
+            choosenPlayerId = ChoosePlayer(players); // user input
 
             if(delete) {
-                DeleteCharacer(characters[choosenCharacterId].Name);
+                DeleteCharacer(players[choosenPlayerId].Name);
                 return new Player(); // useless only for return value
             } else {
-                return Prepare2Load(choosenCharacterId, characters);
+                return Prepare2Load(choosenPlayerId, players);
             }
         }
 
