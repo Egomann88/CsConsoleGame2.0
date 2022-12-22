@@ -281,10 +281,20 @@ namespace CsConsoleGame
         /// <summary>
         /// creates the Player_save directory is it not exsists
         /// </summary>
-        public static void CreateDirectory() {
+        private static void CreateDirectory() {
+            // create folder in current Directory
             string path = Directory.GetCurrentDirectory() + @"\savegames\";
 
             Directory.CreateDirectory(path);
+        }
+
+        private static string GetDirectory() {
+            // if savegame folder does not exist -> create it
+            if ((Directory.GetCurrentDirectory() + @"\savegames\") == null) {
+                CreateDirectory();
+                return Directory.GetCurrentDirectory() + @"\savegames\";
+            }
+            return Directory.GetCurrentDirectory() + @"\savegames\";
         }
 
         /// <summary>
@@ -293,7 +303,7 @@ namespace CsConsoleGame
         /// </summary>
         /// <param name="c">current Player</param>
         public static void SavePlayer(Character c) {
-            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            string path = GetDirectory();  // current Path
             string json = JsonSerializer.Serialize(c);
             
             File.WriteAllText(path + c.Name + @".json", json);  // save in .json file
@@ -307,7 +317,7 @@ namespace CsConsoleGame
         /// </summary>
         /// <param name="name">Player / File name</param>
         public static void DeleteCharacer(string name) {
-            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            string path = GetDirectory();  // current Path
             File.Delete(path + name + ".json");
         }
 
@@ -318,7 +328,7 @@ namespace CsConsoleGame
         /// <returns>true - if save files are available / false - if not</returns>
         public static bool HasPlayers() {
             // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
-            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            string path = GetDirectory();  // current Path
             DirectoryInfo PlayerSaves = new DirectoryInfo(path);
             FileInfo[] Files = PlayerSaves.GetFiles();
 
@@ -333,7 +343,7 @@ namespace CsConsoleGame
         /// <returns>list with all saves</returns>
         public static List<Player> SaveList() {
             // https://www.geeksforgeeks.org/c-sharp-program-for-listing-the-files-in-a-directory/
-            string path = Directory.GetCurrentDirectory() + @"\savegames\";  // current Path
+            string path = GetDirectory();  // current Path
             DirectoryInfo PlayerSaves = new DirectoryInfo(path);
             FileInfo[] Files = PlayerSaves.GetFiles();
             List<Player> SavesList = new List<Player>();
