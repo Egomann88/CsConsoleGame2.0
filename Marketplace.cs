@@ -271,8 +271,8 @@ namespace CsConsoleGame
                 input = Console.ReadKey(true).KeyChar;
 
                 switch (input) {
-                    case '1': ArenaFight(false); break;
-                    case '2': ArenaFight(true); break;
+                    case '1': Player = ArenaFight(false); break;
+                    case '2': Player = ArenaFight(true); break;
                     case '9': return;
                     default: continue;
                 }
@@ -283,11 +283,11 @@ namespace CsConsoleGame
         /// Evaluates and fights against enemy in arena
         /// </summary>
         /// <param name="isHard">Is Enemy strong?</param>
-        private void ArenaFight(bool isHard) {
+        private Player ArenaFight(bool isHard) {
             Enemy e = EvalEnemy(isHard);
-            FightArena fa = new FightArena(Player, e);
+            FightArena fa = new(Player, e);
 
-            fa.FightIn();
+            return fa.FightIn();
         }
 
         /// <summary>
