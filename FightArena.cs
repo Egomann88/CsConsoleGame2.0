@@ -70,7 +70,7 @@ namespace CsConsoleGame
             if (giveUp) Console.WriteLine("{0} hat aufgegeben!", Player.Name);
             else if (Player.Health[0] == 1) Console.WriteLine("{0} hat verloren.", Player.Name);
             else {  // defeated enemy
-                Console.WriteLine("{0} war siegreich!\n{1} Exp erhalten.\n{2} Gold erhalten", Player.Name, Enemy.Exp, Enemy.Gold);
+                Console.WriteLine("{0} war siegreich!\n{1} Exp erhalten.\n{2} Gold erhalten", Player.Name, Enemy.Exp[0], Enemy.Gold);
                 // get enemy gold and exp
                 Player.Exp[0] += Enemy.Exp[0];
                 Player.ChangeAmoutOfGold(Enemy.Gold);
