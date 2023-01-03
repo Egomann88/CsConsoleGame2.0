@@ -66,6 +66,14 @@ namespace CsConsoleGame
         private void HealerOverView() {
             Random r = new();
             char input = '0';
+            string[] healers = {
+                $"1) den Anfänger, sein Heilwert beträgt 25 % eures maximalen Lebens. (Preis: {WEAKHEALERPRICE})",
+                $"2) den Erfaherenen, sein Heilwert beträgt 45 % eures maximalen Lebens. (Preis: {NORMALHEALERPRICE})",
+                $"3) die Wilde, wie viel sie heilt, hängt von ihrer Stimmung ab. (Preis: {JOKERHEALERPRICE})",
+                $"4) die Meisterin, sie kann euer gesamtes Leben und darüber hinaus heilen. (Preis: {STRONGHEALERPRICE})",
+                $"9) Zurück zum Marktplatz",
+                $"\nEurer Leben: {Player.Health[0]} / {Player.Health[1]}"
+            };
 
             while (true) {
                 Console.Clear();
@@ -76,13 +84,11 @@ namespace CsConsoleGame
                     break;
                 }
 
-                Console.WriteLine("Es gibt drei Heiler auf dem Markt:");
-                Console.WriteLine("1) den Anfänger, er kann 25 % eures Lebens wiederherstellen (Preis: {0})\n" +
-                    "2) den Erfaherenen, er kann 45 % eures Lebens wiederherstellen (Preis: {1})\n" +
-                    "3) die Wilde, wie viel sie heilt, hängt von ihrer Stimmung ab. (Preis: {2})\n" +
-                    "4) die Meisterin, sie kann Euch über euer komples Leben heilen (Preis: {3})\n" +
-                    "9) Zurück zum Marktplatz\n\nEurer Leben: {4} / {5}", WEAKHEALERPRICE, NORMALHEALERPRICE,
-                    JOKERHEALERPRICE, STRONGHEALERPRICE, Player.Health[0], Player.Health[1]);
+                Console.WriteLine("Es gibt folgende Heiler auf dem Markt:");
+                foreach(string healer in healers) {
+                    Console.WriteLine(healer);
+                }
+
                 input = Console.ReadKey(true).KeyChar;
 
                 switch (input) {
