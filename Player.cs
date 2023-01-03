@@ -249,11 +249,11 @@ namespace CsConsoleGame
         }
 
         /// <summary>
-        /// Increases all stats by one (exept for class stat - increased by 2)<br />
+        /// Increases all stats by one (exept for class stat & Strength - increased by 2)<br />
+        /// Strength is too strong, if its increased with every level
         /// Heal the Player to max HP
         /// </summary>
         private void IncreaseStats() {
-            Strength++;
             Intelligents++;
             Dexterity++;
             ChangeMaximumHealth(2);
@@ -264,6 +264,7 @@ namespace CsConsoleGame
                 CritMult += 0.10F;
             }
 
+            if(Lvl % 2 == 0 || Lvl % 3 == 0) Strength++;
             if (Lvl % 3 == 0) IncreaseClassStat();
         }
 
