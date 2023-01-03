@@ -246,8 +246,6 @@ namespace CsConsoleGame
                 Exp[0] -= Exp[1];
                 Exp[1] += (byte)(5 + Lvl);
 
-                if (Lvl % 10 == 0) Exp[1] += 15;    // increases exp need every 10 lvls a bit more
-
                 IncreaseStats();
             }
         }
