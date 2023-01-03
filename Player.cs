@@ -215,8 +215,8 @@ namespace CsConsoleGame
                 $"Stärke:\t\t\t{Strength}",
                 $"Inteligents:\t\t{Intelligents}",
                 $"Geschwindigkeit:\t{Dexterity}",
-                $"Krit. Chance:\t\t{CritChance} %",
-                $"Krit. Schaden:\t\t{(CritMult - 1.0F) * 100} %",
+                $"Krit. Chance:\t\t{Math.Round(CritChance, 3)} %",
+                $"Krit. Schaden:\t\t{Math.Round((CritMult - 1.0F) * 100, 3)} %",
                 "\nDrücken Sie <Enter> um zurückzukehren..."
             };
 
