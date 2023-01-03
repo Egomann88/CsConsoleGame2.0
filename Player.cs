@@ -244,9 +244,9 @@ namespace CsConsoleGame
                 Console.WriteLine("\n{0} ist ein Level aufgestiegen.\n{0} ist nun Level {1}.", Name, ++Lvl);
                 Console.ReadKey(true);
                 Exp[0] -= Exp[1];
-                Exp[1] += (byte)(20 + Lvl);
+                Exp[1] += (byte)(5 + Lvl);
 
-                if (Lvl % 10 == 0) Exp[1] += 50;    // increases exp need every 10 lvls a bit more
+                if (Lvl % 10 == 0) Exp[1] += 15;    // increases exp need every 10 lvls a bit more
 
                 IncreaseStats();
             }
