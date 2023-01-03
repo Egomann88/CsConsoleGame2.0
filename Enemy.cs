@@ -83,8 +83,8 @@ namespace CsConsoleGame
                     CritChance = 0.12F * multiplier;
                     CritMult = MaxMultiplier(1.25F, multiplier);
                     Health = new short[] {
-                        Convert.ToInt16(Math.Round(16 * multiplier)),
-                        Convert.ToInt16(Math.Round(16 * multiplier))
+                        Convert.ToInt16(Math.Round(15.4 * multiplier)),
+                        Convert.ToInt16(Math.Round(15.4 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(19 * multiplier));
                     Exp = new uint[] {
@@ -95,7 +95,7 @@ namespace CsConsoleGame
                     break;
                 // bandit
                 case 3:
-                    Name = "Banit";
+                    Name = "Bandit";
                     Strength = Convert.ToUInt16(Math.Round(3 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(0.8 * multiplier));
                     Dexterity = Convert.ToUInt16(Math.Round(2.4 * multiplier));
