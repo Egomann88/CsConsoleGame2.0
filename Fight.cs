@@ -44,8 +44,7 @@ namespace CsConsoleGame
         /// </summary>
         /// <returns>Player with new stats</returns>
         virtual public Player FightIn() {
-            bool fightOver = false;
-            bool fled = false;
+            bool fightOver = false, fled = false;
             bool isPlayerFirst = GetFirstMove();
             byte playerTurns = GetNumOfTurns(true);
             byte enemyTurns = GetNumOfTurns(false);

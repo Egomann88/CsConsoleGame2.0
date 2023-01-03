@@ -17,8 +17,7 @@ namespace CsConsoleGame
 
         // meth
         override public Player FightIn() {
-            bool fightOver = false;
-            bool giveUp = false;
+            bool fightOver = false, giveUp = false;
             bool isPlayerFirst = GetFirstMove();
             byte playerTurns = GetNumOfTurns(true);
             byte enemyTurns = GetNumOfTurns(false);
