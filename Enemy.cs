@@ -183,8 +183,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(12 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(37 * multiplier)),
-                        Convert.ToUInt16(Math.Round(37 * multiplier))
+                        Convert.ToUInt16(Math.Round(38 * multiplier)),
+                        Convert.ToUInt16(Math.Round(38 * multiplier))
                     };
                     IsDmgUlt = false;
                     break;
@@ -202,8 +202,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(68 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(72 * multiplier)),
-                        Convert.ToUInt16(Math.Round(72 * multiplier))
+                        Convert.ToUInt16(Math.Round(74 * multiplier)),
+                        Convert.ToUInt16(Math.Round(74 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
@@ -221,8 +221,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(70 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(80 * multiplier)),
-                        Convert.ToUInt16(Math.Round(80 * multiplier))
+                        Convert.ToUInt16(Math.Round(86 * multiplier)),
+                        Convert.ToUInt16(Math.Round(86 * multiplier))
                     };
                     IsDmgUlt = false;
                     break;
@@ -240,8 +240,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(160 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(110 * multiplier)),
-                        Convert.ToUInt16(Math.Round(110 * multiplier))
+                        Convert.ToUInt16(Math.Round(140 * multiplier)),
+                        Convert.ToUInt16(Math.Round(140 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
@@ -259,8 +259,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(140 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(140 * multiplier)),
-                        Convert.ToUInt16(Math.Round(140 * multiplier))
+                        Convert.ToUInt16(Math.Round(160 * multiplier)),
+                        Convert.ToUInt16(Math.Round(160 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
@@ -278,8 +278,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(36 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(180 * multiplier)),
-                        Convert.ToUInt16(Math.Round(180 * multiplier))
+                        Convert.ToUInt16(Math.Round(225 * multiplier)),
+                        Convert.ToUInt16(Math.Round(225 * multiplier))
                     };
                     IsDmgUlt = false;
                     break;
@@ -297,8 +297,8 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(150 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(240 * multiplier)),
-                        Convert.ToUInt16(Math.Round(240 * multiplier))
+                        Convert.ToUInt16(Math.Round(270 * multiplier)),
+                        Convert.ToUInt16(Math.Round(270 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
