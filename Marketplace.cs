@@ -35,16 +35,14 @@
         /// <returns>current Character</returns>
         public Player OnMarket() {
             bool onMarket = true;
-            char input = '0';
 
             while (onMarket) {
                 Console.Clear();
                 Console.WriteLine("Ihr befindet Euch auf dem Marktplatz.\nWohin wollt Ihr gehen?");
                 Console.WriteLine("1) Heiler\n2) Glückspiel\n3) Arena\n4) Verstärkungsmagier\n9) Marktplatz verlassen");
 
-                input = Console.ReadKey(true).KeyChar;
-
-                switch (input) {
+                //input
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1': HealerOverView(); break;
                     case '2': GamblingOverView(); break;
                     case '3': ArenaOverView(); break;
@@ -59,7 +57,6 @@
 
         private void HealerOverView() {
             Random r = new();
-            char input = '0';
             string[] healers = {
                 $"1) den Anfänger, sein Heilwert beträgt 25 % eures maximalen Lebens. (Preis: {WEAKHEALERPRICE})",
                 $"2) den Erfaherenen, sein Heilwert beträgt 45 % eures maximalen Lebens. (Preis: {NORMALHEALERPRICE})",
@@ -83,9 +80,8 @@
                     Console.WriteLine(healer);
                 }
 
-                input = Console.ReadKey(true).KeyChar;
-
-                switch (input) {
+                // input
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1':
                         if (!PlayerGoldEnough(WEAKHEALERPRICE)) break;
 
@@ -157,16 +153,14 @@
         /// Shows the games one can play -> gives the choice to play one of them or to leave
         /// </summary>
         private void GamblingOverView() {
-            char input = '0';
-
             while (true) {
                 Console.Clear();
                 Console.WriteLine("Ihr könnt \"Rot oder Schwarz\" spielen.");
                 Console.WriteLine("Dort musst ihr euren Einsatz geben und auf euer Glück hoffen.");
                 Console.WriteLine("1) Rot oder Schwarz spielen\n9) Zurück zum Marktplatz");
-                input = Console.ReadKey(true).KeyChar;
 
-                switch (input) {
+                // input
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1': RedBlack(); break;
                     case '9': return;
                     default: continue;
@@ -222,9 +216,9 @@
             }
 
             Console.Write("\n\nDas Ergebnis ist");
-            for (byte i = 0; i < 4; i++) {
+            for (byte i = 0; i < 3; i++) {
                 Console.Write(".");
-                Thread.Sleep(SHORTTIMEOUT - 400); // 0.4s * 4 = 1.6s
+                Thread.Sleep(SHORTTIMEOUT - 200); // 0.6s * 3 = 1.8s
             }
 
             if (r.Next(1, 3) == 1) {
@@ -250,17 +244,15 @@
         /// Shows arena and rules -> gives choice to fight or leave
         /// </summary>
         private void ArenaOverView() {
-            char input = '0';
-
             while (true) {
                 Console.Clear();
                 Console.WriteLine("In der Arena werdet ihr ausschliesslich starke Gegner treffen und wie der Zufall es will, " +
                     "habt ihr die Möglichkeit gegen besonders starke Gegner zu kämpfen, mit höheren Belohnungen natürlich\n" +
                     "In der Arena gelten nicht dieselben Regeln wie in der Wildnis. Hier könnt ihr nicht sterben.");
                 Console.WriteLine("1) Normaler Arenakampf\n2) Kampf gegen starken Gegner\n9) Zurück zum Marktplatz.");
-                input = Console.ReadKey(true).KeyChar;
 
-                switch (input) {
+                // input
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1': Player = ArenaFight(false); break;
                     case '2': Player = ArenaFight(true); break;
                     case '9': return;
@@ -281,7 +273,7 @@
         }
 
         /// <summary>
-        /// generates rnd enemy between 5 and 10<br/>
+        /// generates rnd enemy<br/>
         /// enemy can be extra strong
         /// </summary>
         /// <param name="isHard">Is Enemy strong?</param>
@@ -299,7 +291,6 @@
         /// If the player can't pay, he won't get it
         /// </summary>
         private void StatPushOverView() {
-            char input = '0';
             ushort price = 0;
 
             if (Player.Lvl < LVLFORHIGHUSES) {
@@ -317,9 +308,9 @@
                 Console.WriteLine("1) +1 Stärke (Preis: {0} Gold)\n2) +1 Inteligents (Preis: {1} Gold)\n3) +1 Geschicklichkeit (Preis: {2} Gold)\n" +
                   "4) +5 Max Leben (Preis: {3} Gold)\n5) Krit. Chance + 2 % (Preis: {4} Gold)\n6) Krit. Schaden + 5 % (Preis: {5} Gold)\n" +
                   "9) Zurück zum Marktplatzs", STRPRICE, INTPRICE, DEXPRICE, HELPRICE, CCHPRICE, CMLPRICE);
-                input = Console.ReadKey().KeyChar;
 
-                switch (input) {
+                // input
+                switch (Console.ReadKey().KeyChar) {
                     case '1':
                         price = STRPRICE;
                         if(!PlayerGoldEnough(price)) continue;
@@ -379,7 +370,6 @@
         /// </summary>
         private static void NotEnoughMoney() {
             Console.WriteLine("Ihr habt nicht genügend Geld.");
-            
         }
     }
 }
