@@ -93,27 +93,8 @@ namespace CsConsoleGame
                     };
                     IsDmgUlt = true;
                     break;
-                // bandit
-                case 3:
-                    Name = "Bandit";
-                    Strength = Convert.ToUInt16(Math.Round(3 * multiplier));
-                    Intelligents = Convert.ToUInt16(Math.Round(0.8 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(2.4 * multiplier));
-                    CritChance = 0.02F * multiplier;
-                    CritMult = MaxMultiplier(1.25F, multiplier);
-                    Health = new short[] {
-                        Convert.ToInt16(Math.Round(16 * multiplier)),
-                        Convert.ToInt16(Math.Round(18 * multiplier))
-                    };
-                    Gold = Convert.ToInt32(Math.Round(21 * multiplier));
-                    Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(16 * multiplier)),
-                        Convert.ToUInt16(Math.Round(16 * multiplier))
-                    };
-                    IsDmgUlt = true;
-                    break;
                 // witch
-                case 4:
+                case 3:
                     Name = "Hexe";
                     Strength = Convert.ToUInt16(Math.Round(1.3 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(4 * multiplier));
@@ -128,6 +109,25 @@ namespace CsConsoleGame
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(23 * multiplier)),
                         Convert.ToUInt16(Math.Round(23 * multiplier))
+                    };
+                    IsDmgUlt = true;
+                    break;
+                // bandit
+                case 4:
+                    Name = "Bandit";
+                    Strength = Convert.ToUInt16(Math.Round(3 * multiplier));
+                    Intelligents = Convert.ToUInt16(Math.Round(0.8 * multiplier));
+                    Dexterity = Convert.ToUInt16(Math.Round(2.4 * multiplier));
+                    CritChance = 0.02F * multiplier;
+                    CritMult = MaxMultiplier(1.25F, multiplier);
+                    Health = new short[] {
+                        Convert.ToInt16(Math.Round(16 * multiplier)),
+                        Convert.ToInt16(Math.Round(18 * multiplier))
+                    };
+                    Gold = Convert.ToInt32(Math.Round(21 * multiplier));
+                    Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(16 * multiplier)),
+                        Convert.ToUInt16(Math.Round(16 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
@@ -226,27 +226,8 @@ namespace CsConsoleGame
                     };
                     IsDmgUlt = false;
                     break;
-                // grifin
-                case 10:
-                    Name = "Grifin";
-                    Strength = Convert.ToUInt16(Math.Round(11.4 * multiplier));
-                    Intelligents = Convert.ToUInt16(Math.Round(10 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(14 * multiplier));
-                    CritChance = 0.10F * multiplier;
-                    CritMult = MaxMultiplier(1.5F, multiplier, true);
-                    Health = new short[] {
-                        Convert.ToInt16(Math.Round(76 * multiplier)),
-                        Convert.ToInt16(Math.Round(76 * multiplier))
-                    };
-                    Gold = Convert.ToInt32(Math.Round(36 * multiplier));
-                    Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(190 * multiplier)),
-                        Convert.ToUInt16(Math.Round(190 * multiplier))
-                    };
-                    IsDmgUlt = false;
-                    break;
                 // dragon
-                case 11:
+                case 10:
                     Name = "Drache";
                     Strength = Convert.ToUInt16(Math.Round(10.4 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(7.8 * multiplier));
@@ -259,13 +240,13 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(160 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(150 * multiplier)),
-                        Convert.ToUInt16(Math.Round(150 * multiplier))
+                        Convert.ToUInt16(Math.Round(110 * multiplier)),
+                        Convert.ToUInt16(Math.Round(110 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
                 // demon
-                case 12:
+                case 11:
                     Name = "Dämon";
                     Strength = Convert.ToUInt16(Math.Round(11.6 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(9 * multiplier));
@@ -278,10 +259,29 @@ namespace CsConsoleGame
                     };
                     Gold = Convert.ToInt32(Math.Round(140 * multiplier));
                     Exp = new uint[] {
+                        Convert.ToUInt16(Math.Round(140 * multiplier)),
+                        Convert.ToUInt16(Math.Round(140 * multiplier))
+                    };
+                    IsDmgUlt = true;
+                    break;
+                // grifin
+                case 12:
+                    Name = "Grifin";
+                    Strength = Convert.ToUInt16(Math.Round(11.4 * multiplier));
+                    Intelligents = Convert.ToUInt16(Math.Round(10 * multiplier));
+                    Dexterity = Convert.ToUInt16(Math.Round(14 * multiplier));
+                    CritChance = 0.10F * multiplier;
+                    CritMult = MaxMultiplier(1.5F, multiplier, true);
+                    Health = new short[] {
+                        Convert.ToInt16(Math.Round(76 * multiplier)),
+                        Convert.ToInt16(Math.Round(76 * multiplier))
+                    };
+                    Gold = Convert.ToInt32(Math.Round(36 * multiplier));
+                    Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(180 * multiplier)),
                         Convert.ToUInt16(Math.Round(180 * multiplier))
                     };
-                    IsDmgUlt = true;
+                    IsDmgUlt = false;
                     break;
                 // ashura
                 case 13:

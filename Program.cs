@@ -36,10 +36,10 @@ static Player Dungeon(Player p) {
         else if (rnd <= 10) rnd = 6; // 6 %
         else if (rnd <= 20) rnd = 7; // 10 %
         else if (rnd <= 33) rnd = 8; // 13 %
-        else if (rnd <= 43) rnd = 9; // 10 %
-        else if (rnd <= 57) rnd = 10; // 14 %
-        else if (rnd <= 69) rnd = 11; // 12 %
-        else if (rnd <= 83) rnd = 12; // 14 %
+        else if (rnd <= 45) rnd = 9; // 12 %
+        else if (rnd <= 55) rnd = 10; // 10 %
+        else if (rnd <= 67) rnd = 11; // 12 %
+        else if (rnd <= 83) rnd = 12; // 16 %
         else rnd = 13; // 17 %
     }
 
