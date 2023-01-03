@@ -40,7 +40,7 @@ namespace CsConsoleGame
                     Name = "Gladiator";
                     Strength = Convert.ToUInt16(Math.Round(12 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(10 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(10 * multiplier));
+                    Dexterity = Convert.ToUInt16(Math.Round(11 * multiplier));
                     CritChance = 0.10F * multiplier;
                     CritMult = base.MaxMultiplier(1.1F, multiplier, true);
                     Health = new short[] {
@@ -58,8 +58,8 @@ namespace CsConsoleGame
                     Name = "Aurelion";
                     Strength = Convert.ToUInt16(Math.Round(8.4 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(14.1 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(8.2 * multiplier));
-                    CritChance = 0.09F * multiplier;
+                    Dexterity = Convert.ToUInt16(Math.Round(11.2 * multiplier));
+                    CritChance = 0.11F * multiplier;
                     CritMult = base.MaxMultiplier(1.15F, multiplier, true);
                     Health = new short[] {
                         Convert.ToInt16(Math.Round(56.4 * multiplier)),
@@ -76,12 +76,12 @@ namespace CsConsoleGame
                     Name = "Gold Hexe";
                     Strength = Convert.ToUInt16(Math.Round(5 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(17.8 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(5 * multiplier));
+                    Dexterity = Convert.ToUInt16(Math.Round(9 * multiplier));
                     CritChance = 0;
                     CritMult = 0;
                     Health = new short[] {
-                        Convert.ToInt16(Math.Round(30 * multiplier)),
-                        Convert.ToInt16(Math.Round(90 * multiplier))
+                        Convert.ToInt16(Math.Round(55 * multiplier)),
+                        Convert.ToInt16(Math.Round(150 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(384 * multiplier));
                     Exp = new uint[] {
@@ -92,10 +92,10 @@ namespace CsConsoleGame
                     break;
                 case 4:
                     Name = "Todesritter";
-                    Strength = Convert.ToUInt16(Math.Round(14.4 * multiplier));
+                    Strength = Convert.ToUInt16(Math.Round(15.4 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(10 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(10 * multiplier));
-                    CritChance = 0.03F * multiplier;
+                    Dexterity = Convert.ToUInt16(Math.Round(12 * multiplier));
+                    CritChance = 0.08F * multiplier;
                     CritMult = base.MaxMultiplier(1.66F, multiplier, true);
                     Health = new short[] {
                         Convert.ToInt16(Math.Round(66 * multiplier)),
@@ -112,12 +112,12 @@ namespace CsConsoleGame
                     Name = "Nachtklinge";
                     Strength = Convert.ToUInt16(Math.Round(11.4 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(8.4 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(16.4 * multiplier));
+                    Dexterity = Convert.ToUInt16(Math.Round(17.4 * multiplier));
                     CritChance = 0.20F * multiplier;
                     CritMult = base.MaxMultiplier(1.11F, multiplier, true);
                     Health = new short[] {
-                        Convert.ToInt16(Math.Round(40 * multiplier)),
-                        Convert.ToInt16(Math.Round(40 * multiplier))
+                        Convert.ToInt16(Math.Round(55 * multiplier)),
+                        Convert.ToInt16(Math.Round(55 * multiplier))
                     };
                     Gold = Convert.ToInt32(Math.Round(350 * multiplier));
                     Exp = new uint[] {
