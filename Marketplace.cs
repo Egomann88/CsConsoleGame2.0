@@ -87,28 +87,19 @@
 
                 switch (input) {
                     case '1':
-                        if (Player.Gold < WEAKHEALERPRICE) {
-                            NotEnoughMoney();
-                            break;
-                        }
+                        if (!PlayerGoldEnough(WEAKHEALERPRICE)) break;
 
                         HealerPerzent(0.25);
                         Player.Gold -= WEAKHEALERPRICE;
                         break;
                     case '2':
-                        if (Player.Gold < NORMALHEALERPRICE) {
-                            NotEnoughMoney();
-                            break;
-                        }
+                        if (!PlayerGoldEnough(NORMALHEALERPRICE)) break;
 
                         HealerPerzent(0.45);
                         Player.Gold -= NORMALHEALERPRICE;
                         break;
                     case '3':
-                        if (Player.Gold < JOKERHEALERPRICE) {
-                            NotEnoughMoney();
-                            break;
-                        }
+                        if (!PlayerGoldEnough(JOKERHEALERPRICE)) break;
 
                         HealerNumber((short)r.Next(5, Player.Health[1] - 15), true);
                         Player.Gold -= JOKERHEALERPRICE;
@@ -118,10 +109,8 @@
                             Console.WriteLine("Die Heilerin lässt euch nicht hinein. Euer Level ist zu tief.");
                             Thread.Sleep(TIMEOUT);
                             continue;
-                        } else if (Player.Gold < STRONGHEALERPRICE) {
-                            NotEnoughMoney();
-                            break;
-                        }
+                        } else if (!PlayerGoldEnough(STRONGHEALERPRICE)) break;
+
                         Player.FullHeal();
                         HealerNumber(5, true);  // overheal by 5 hp
                         Console.WriteLine("Komplettes Leben wurde wiederhergestellt.");
@@ -199,7 +188,7 @@
             uint stake = 0; // players bet
             char input = '0';
 
-            if (Player.Gold <= 0) {
+            if (Player.Gold <= 0) { // player has no gold
                 NotEnoughMoney();
                 Thread.Sleep(TIMEOUT);
                 return;
@@ -235,7 +224,7 @@
             Console.Write("\n\nDas Ergebnis ist");
             for (byte i = 0; i < 4; i++) {
                 Console.Write(".");
-                Thread.Sleep(SHORTTIMEOUT - 300); // 0.5s * 4 = 2s
+                Thread.Sleep(SHORTTIMEOUT - 400); // 0.4s * 4 = 1.6s
             }
 
             if (r.Next(1, 3) == 1) {
