@@ -237,16 +237,14 @@ namespace CsConsoleGame
             if (Lvl >= MAXLVL) {
                 Lvl = MAXLVL;
                 Exp = new uint[2] { 0, 0 };
-                return;
-            }
-
-            while(Exp[0] >= Exp[1]) { // allows multiple lvl ups
+            } else if(Exp[0] >= Exp[1]) { // allows multiple lvl ups
                 Console.WriteLine("\n{0} ist ein Level aufgestiegen.\n{0} ist nun Level {1}.", Name, ++Lvl);
                 Console.ReadKey(true);
                 Exp[0] -= Exp[1];
                 Exp[1] += (byte)(5 + Lvl);
 
                 IncreaseStats();
+                IncreaseLvl();
             }
         }
 
