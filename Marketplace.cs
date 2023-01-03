@@ -13,7 +13,7 @@ namespace CsConsoleGame
         private const byte NORMALHEALERPRICE = 45;
         private const byte JOKERHEALERPRICE = 60;
         private const byte STRONGHEALERPRICE = 80;
-        private const byte LVLFORHIGHUSES = 9;
+        private const byte LVLFORHIGHUSES = 12;
         private const int SHORTTIMEOUT = 800;
         private const int TIMEOUT = 1200;
         private const int LONGTIMEOUT = 2000;
