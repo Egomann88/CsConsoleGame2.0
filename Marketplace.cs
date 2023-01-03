@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CsConsoleGame
+﻿namespace CsConsoleGame
 {
     internal class Marketplace
     {
@@ -338,40 +332,57 @@ namespace CsConsoleGame
 
                 switch (input) {
                     case '1':
-                        if (Player.Gold >= STRPRICE) Player.Strength++;
-                        else NotEnoughMoney();
                         price = STRPRICE;
+                        if(!PlayerGoldEnough(price)) continue;
+                        
+                        Player.Strength++;
                         break;
                     case '2':
-                        if (Player.Gold >= INTPRICE) Player.Intelligents++;
-                        else NotEnoughMoney();
                         price = INTPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+                        
+                        Player.Intelligents++;
                         break;
                     case '3':
-                        if (Player.Gold >= DEXPRICE) Player.Dexterity++;
-                        else NotEnoughMoney();
                         price = DEXPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+
+                        Player.Dexterity++;
                         break;
                     case '4':
-                        if (Player.Gold >= HELPRICE) Player.Health[1] += 5;
-                        else NotEnoughMoney();
                         price = HELPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+
+                        Player.Health[1] += 5;
                         break;
                     case '5':
-                        if (Player.Gold >= CCHPRICE) Player.CritChance += 2;
-                        else NotEnoughMoney();
                         price = CCHPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+
+                        Player.CritChance += 2;
                         break;
                     case '6':
-                        if (Player.Gold >= CMLPRICE) Player.CritMult += 0.05F;
-                        else NotEnoughMoney();
                         price = CMLPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+
+                        Player.CritMult += 0.05F;
                         break;
                     case '9': return;
                     default: continue;
                 }
                 Player.Gold -= price;
+                Thread.Sleep(SHORTTIMEOUT);
             }
+        }
+
+        private bool PlayerGoldEnough(ushort price) {
+            if (Player.Gold < price) {
+                NotEnoughMoney();
+                Thread.Sleep(SHORTTIMEOUT);
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -379,6 +390,7 @@ namespace CsConsoleGame
         /// </summary>
         private static void NotEnoughMoney() {
             Console.WriteLine("Ihr habt nicht genügend Geld.");
+            
         }
     }
 }

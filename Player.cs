@@ -237,7 +237,7 @@ namespace CsConsoleGame
             if (Lvl >= MAXLVL) {
                 Lvl = MAXLVL;
                 Exp = new uint[2] { 0, 0 };
-            } else if(Exp[0] >= Exp[1]) { // allows multiple lvl ups
+            } else if (Exp[0] >= Exp[1]) { // allows multiple lvl ups
                 Console.WriteLine("\n{0} ist ein Level aufgestiegen.\n{0} ist nun Level {1}.", Name, ++Lvl);
                 Console.ReadKey(true);
                 Exp[0] -= Exp[1];
@@ -264,7 +264,7 @@ namespace CsConsoleGame
                 CritMult += 0.10F;
             }
 
-            if(Lvl % 2 == 0 || Lvl % 3 == 0) Strength++;
+            if (Lvl % 2 == 0 || Lvl % 3 == 0) Strength++;
             if (Lvl % 3 == 0) IncreaseClassStat();
         }
 
