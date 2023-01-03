@@ -72,6 +72,7 @@ namespace CsConsoleGame
 
                 if (PlayerFullHp()) {
                     Console.WriteLine("Ihr habt bereits volles Leben.");
+                    Thread.Sleep(SHORTTIMEOUT);
                     break;
                 }
 
