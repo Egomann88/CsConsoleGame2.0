@@ -313,7 +313,7 @@ namespace CsConsoleGame
             Random r = new();
 
             // both are equal -> rnd first move
-            if (Player.Dexterity == Enemy.Dexterity) return r.Next(1, 3) == 1 ? true : false;
+            if (Player.Dexterity == Enemy.Dexterity) return r.Next(1, 3) == 1;
             else if (Player.Dexterity > Enemy.Dexterity) return true;
             else return false;
         }

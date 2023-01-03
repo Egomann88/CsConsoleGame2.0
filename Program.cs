@@ -98,7 +98,7 @@ do {
                 player = Dungeon(player);
                 chAlive = PlayerAlive(player);
                 break;
-            case '2': player.ShowPlayer(); continue;
+            case '2': player.ShowPlayer(); continue;    // continiue skips autosave
             case '3': player = marketplace.OnMarket(); break;
             //case '4': player.Gold += 9999; player.Lvl += 9; player.Strength += 80; break;
             case '6': player.Name = Player.ChangeName(); break;
@@ -116,6 +116,6 @@ do {
                 continue;
             default: break; // nothing happens
         }
-        Player.SavePlayer(player); // auto-save
+        Player.SavePlayer(player); // autosave
     } while (chAlive);  // if char still alive, start new opt
 } while (true);

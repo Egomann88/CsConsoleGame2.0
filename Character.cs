@@ -9,12 +9,6 @@ namespace CsConsoleGame
 {
     abstract class Character
     {
-        // class
-
-        // member
-
-        // const
-
         // meth
         public string Name { get; set; }
 
