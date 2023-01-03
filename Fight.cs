@@ -140,7 +140,7 @@ namespace CsConsoleGame
                         if (CritDodge(Player.CritChance)) {
                             damage = Convert.ToUInt16(Math.Round(damage * Player.CritMult));
                             actionText += "Kritischer Treffer!\n";
-                            chance2Hit = 100; // Crit is always an hit
+                            chance2Hit = 100; // Crit always hits
                         }
 
                         if (!CritDodge(chance2Hit)) {
@@ -174,7 +174,7 @@ namespace CsConsoleGame
                         if (CritDodge(Player.CritChance)) {
                             damage = Convert.ToUInt16(Math.Round(damage * Player.CritMult));
                             actionText += "Kritischer Treffer!\n";
-                            chance2Hit = 100; // Crit is always an hit
+                            chance2Hit = 100; // Crit always hits
                         }
 
                         if (!CritDodge(chance2Hit + ULTHITBONUS)) { // ultimate has extra hit chance

@@ -26,22 +26,21 @@ static Player Dungeon(Player p) {
     byte rnd = 0;
 
     if (p.Lvl < 3) rnd = Convert.ToByte(r.Next(1, 3)); // only picks the easy enemies
-    else if (p.Lvl < 5) rnd = Convert.ToByte(r.Next(1, 4)); // only picks the easy enemies
-    else if (p.Lvl < 8) rnd = Convert.ToByte(r.Next(1, 5)); // only picks the easy enemies
-    else if (p.Lvl < 10) rnd = Convert.ToByte(r.Next(1, 6)); // only picks the easy enemies
+    else if (p.Lvl < 5) rnd = Convert.ToByte(r.Next(1, 6)); // only picks the easy enemies
+    else if (p.Lvl < 8) rnd = Convert.ToByte(r.Next(3, 8)); // only picks the easy enemies
+    else if (p.Lvl < 10) rnd = Convert.ToByte(r.Next(3, 12)); // only picks the easy enemies
     else {
         rnd = Convert.ToByte(r.Next(1, 101));
 
-        if (rnd <= 6) rnd = 1; // 6 %
-        else if (rnd <= 12) rnd = 2; // 6 %
-        else if (rnd <= 20) rnd = 3; // 8 %
-        else if (rnd <= 34) rnd = 4; // 14 %
-        else if (rnd <= 50) rnd = 5; // 16 %
-        else if (rnd <= 68) rnd = 6; // 18 %
-        else if (rnd <= 86) rnd = 7; // 18 %
-        else if (rnd <= 91) rnd = 8; // 5 %
-        else if (rnd <= 96) rnd = 9; // 5 %
-        else rnd = 10; // 4 %
+        if (rnd <= 4) rnd = 5; // 4 %
+        else if (rnd <= 10) rnd = 6; // 6 %
+        else if (rnd <= 20) rnd = 7; // 10 %
+        else if (rnd <= 33) rnd = 8; // 13 %
+        else if (rnd <= 43) rnd = 9; // 10 %
+        else if (rnd <= 57) rnd = 10; // 14 %
+        else if (rnd <= 69) rnd = 11; // 12 %
+        else if (rnd <= 83) rnd = 12; // 14 %
+        else rnd = 13; // 17 %
     }
 
     Enemy e = new Enemy(p.Lvl, rnd, false); // generate enemy
@@ -73,6 +72,8 @@ static Player MainMenu() {
         }
     }
 }
+
+// main()
 
 char input = '0';
 bool chAlive = false;
