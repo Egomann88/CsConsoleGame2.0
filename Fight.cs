@@ -9,7 +9,7 @@ namespace CsConsoleGame
     internal class Fight
     {
         // class
-        protected const byte HEALCOOLDOWN = 3;    // Default cooldown of both sides on the healpotion
+        protected const byte HEALCOOLDOWN = 3;    // Default cooldown for both sides on the healpotion
         protected const byte ULTIMATECOOLDOWN = 4; // Default cooldown for both sides on the ultimate
         protected const byte ULTHITBONUS = 20;  // 20 % hit bonus for Ultimate
         protected const int SHORTTIMEOUT = 800;
