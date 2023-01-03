@@ -188,7 +188,7 @@ namespace CsConsoleGame
                     };
                     IsDmgUlt = false;
                     break;
-                // beserker
+                // beserk
                 case 8:
                     Name = "Beserker";
                     Strength = Convert.ToUInt16(Math.Round(8.4 * multiplier));
