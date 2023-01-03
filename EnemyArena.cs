@@ -75,7 +75,7 @@ namespace CsConsoleGame
                 case 3:
                     Name = "Gold Hexe";
                     Strength = Convert.ToUInt16(Math.Round(5 * multiplier));
-                    Intelligents = Convert.ToUInt16(Math.Round(17.8 * multiplier));
+                    Intelligents = Convert.ToUInt16(Math.Round(26.8 * multiplier));
                     Dexterity = Convert.ToUInt16(Math.Round(9 * multiplier));
                     CritChance = 0;
                     CritMult = 0;
