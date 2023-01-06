@@ -369,6 +369,9 @@
             }
         }
 
+        /// <summary>
+        /// ives the opportunity to rent an worker with can heal, get money or increase stats for free.<br />
+        /// </summary>
         private void TavernOverView() {
             char trainerFocus = '0';
             string[] informations = {
@@ -414,6 +417,7 @@
                         } else break;
                     case '3':
                         if (PlayerGoldEnough(WORKERTRAINERPRICE)) {
+                            Console.Clear();
                             Console.WriteLine("Auf was soll der Trainer spezialisiert sein?");
                             foreach (string trainerSpezText in trainerSpezTexts) { Console.WriteLine(trainerSpezText); }
                             while (!(trainerFocus is 'S' or 'I' or 'D' or 'E')) { 
@@ -434,10 +438,14 @@
             }
         }
 
+        /// <summary>
+        /// Lets the player input an name or lets an rnd name be choosen
+        /// </summary>
+        /// <returns>string -> name</returns>
         private string CreateWorker() {
             string name = "";
 
-            Console.WriteLine("Gibt euren Heiler einen Namen (leer lassen für zufälligen Namen): ");
+            Console.WriteLine("Gibt euren Arbeiter einen Namen (leer lassen für zufälligen Namen): ");
             name = Console.ReadLine();
 
             if (String.IsNullOrEmpty(name)) name = GetRndName();
@@ -445,6 +453,9 @@
             return name;
         }
 
+        /// <summary>
+        /// overview of healer worker
+        /// </summary>
         private void WorkerHealer() {
             string[] services = {
                 "1) Heilen",
@@ -466,7 +477,9 @@
                         Player.ChangeCurrentHealth(heal);
                         break;
                     case '2':
-                        healer.IncreaseService();
+                        healer.Lvl += WorkerServices.IncreaseService(healer, Player.Gold);
+                        Player.Gold -= healer.UpgradeCost;
+                        healer.UpgradeCost = WorkerServices.SetUpgradeCost(healer);
                         break;
                     case '9': return;
                     default: continue;
@@ -474,6 +487,9 @@
             }
         }
 
+        /// <summary>
+        /// overview of looter worker
+        /// </summary>
         private void WorkerLooter() {
             string[] services = {
                 "1) Geld einfordern",
@@ -495,7 +511,9 @@
                         Player.ChangeAmoutOfGold(gold);
                         break;
                     case '2':
-                        looter.IncreaseService();
+                        looter.Lvl += WorkerServices.IncreaseService(looter, Player.Gold);
+                        Player.Gold -= looter.UpgradeCost;
+                        looter.UpgradeCost = WorkerServices.SetUpgradeCost(looter);
                         break;
                     case '9': return;
                     default: continue;
@@ -503,6 +521,9 @@
             }
         }
 
+        /// <summary>
+        /// overview of trainer worker
+        /// </summary>
         private void WorkerTrainer(char focus) {
             string[] services = {
                 "1) Trainiern",
@@ -518,7 +539,7 @@
                 Console.WriteLine("Was soll {0} tun?", trainer.Name);
                 foreach (string service in services) { Console.WriteLine(service); }
 
-                switch (Console.ReadKey().KeyChar) {
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1':
                         byte increase = trainer.UseService();
 
@@ -549,6 +570,12 @@
             }
         }
 
+        /// <summary>
+        /// Checks if the player has enough gold to buy this<br />
+        /// if not, the NotEnoughtMoney text with Sleep will be shown
+        /// </summary>
+        /// <param name="price">money the player needs to have</param>
+        /// <returns>true / false</returns>
         private bool PlayerGoldEnough(ushort price) {
             if (Player.Gold < price) {
                 NotEnoughMoney();

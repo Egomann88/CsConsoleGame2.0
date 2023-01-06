@@ -7,49 +7,49 @@ using System.Xml.Linq;
 
 namespace CsConsoleGame
 {
-    internal class WorkerServices
+    internal static class WorkerServices
     {
         // class
         private const byte MAXLVL = 5;
 
-        // const
-        public WorkerServices(IWorkerServices ws) {
-            Ws = ws;
-        }
-
         // meth
-        public IWorkerServices Ws { get; set; }
-
-        public void IncreaseService() {
-            if (Ws.Lvl == MAXLVL) {
-                Console.WriteLine("{0} ist auf der höchsten Stufe", Ws.Name);
-                return;
+        /// <summary>
+        /// Asks the Player if he wants to upgrade his worker<br />
+        /// </summary>
+        /// <param name="ws">worker</param>
+        /// <returns>1 or 0</returns>
+        public static byte IncreaseService(IWorkerServices ws, int playerGold) {
+            if (ws.Lvl != MAXLVL) {
+                Console.WriteLine("{0} ist Stufe {1}.\nEine Verbesserung kostet {2}.\n" +
+                "Stufe aufsteigen lassen? [j/n]", ws.Name, ws.Lvl, ws.UpgradeCost);
+                if (Console.ReadKey(false).Key == ConsoleKey.J && playerGold >= ws.UpgradeCost) return 1;
             }
-
-            Console.WriteLine("{0} ist Stufe {1}.\nEine Verbesserung kostet {2}.\n" +
-                "Stufe aufsteigen lassen? [j/n]", Ws.Name, Ws.Lvl, Ws.UpgradeCost);
-            if (Console.ReadKey(false).Key == ConsoleKey.J) {
-                Ws.Lvl++;
-                SetUpgradeCost();
-            }
+            Console.WriteLine("{0} ist auf der höchsten Stufe", ws.Name);
+            return 0;
         }
 
-        public void SetUpgradeCost() {
+        /// <summary>
+        /// Sets the cost for upgrade to the next lvl
+        /// </summary>
+        /// <param name="ws">worker</param>
+        /// <returns>upgrade costs for next lvl</returns>
+        public static ushort SetUpgradeCost(IWorkerServices ws) {
             Random r = new();
-            switch (Ws.Lvl) {
+            switch (ws.Lvl) {
                 case 1:
-                    Ws.UpgradeCost = (ushort)(500 + r.Next(1, 777));
+                    ws.UpgradeCost = (ushort)(500 + r.Next(1, 777));
                     break;
                 case 2:
-                    Ws.UpgradeCost = (ushort)(800 + r.Next(1, 777));
+                    ws.UpgradeCost = (ushort)(800 + r.Next(1, 777));
                     break;
                 case 3:
-                    Ws.UpgradeCost = (ushort)(1357 + r.Next(1, 999));
+                    ws.UpgradeCost = (ushort)(1357 + r.Next(1, 999));
                     break;
                 case 4:
-                    Ws.UpgradeCost = (ushort)(2222 + r.Next(1, 1111));
+                    ws.UpgradeCost = (ushort)(2222 + r.Next(1, 1111));
                     break;
             }
+            return ws.UpgradeCost;
         }
     }
 }
