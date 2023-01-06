@@ -51,11 +51,11 @@ static Player Dungeon(Player p) {
 }
 
 static Player MainMenu() {
+    while (true) {
+        // in while, because when all chars deleted - load and delete is still shown
     string mainMenuText = "1) Charakter erstellen\n";
-
     if (Player.HasPlayers()) mainMenuText += "2) Charakter laden\n3) Charakter löschen\n";
 
-    while (true) {
         Console.Clear();
         Console.WriteLine("Hauptmenü\n{0}9) Spiel beenden", mainMenuText);
         char input = Console.ReadKey(true).KeyChar;
@@ -80,6 +80,15 @@ char input = '0';
 bool chAlive = false;
 Player player;
 Marketplace marketplace;
+string[] infos = {
+    "1) Dungeon",
+    "2) Charakter betrachten",
+    "3) Marktplatz",
+    "6) Charakter umbenennen",
+    "7) Charakter speichern",
+    "8) Zurück zum Hauptmenü",
+    "9) Spiel beenden",
+};
 
 do {
     player = MainMenu();
@@ -90,8 +99,7 @@ do {
     do {
         Console.Clear();
         Console.WriteLine("{0}, bei Ihnen liegt die Wahl.", player.Name);
-        Console.WriteLine("1) Dungeon\n2) Charakter betrachten\n3) Marktplatz\n6) Charakter umbenennen\n" +
-          "7) Charakter speichern\n8) Zurück zum Hauptmenü\n9) Spiel beenden");
+        foreach(string info in infos) { Console.WriteLine(info); }
         input = Console.ReadKey(true).KeyChar;
 
         switch (input) {
@@ -99,7 +107,7 @@ do {
                 player = Dungeon(player);
                 chAlive = PlayerAlive(player);
                 break;
-            case '2': player.ShowPlayer(); continue;    // continiue skips autosave
+            case '2': player.ShowPlayer(); continue;    // continue skips autosave
             case '3': player = marketplace.OnMarket(); break;
             //case '4': player.Gold += 9999; player.Lvl += 9; player.Strength += 80; break;
             case '6': player.Name = Player.ChangeName(); break;
