@@ -17,6 +17,9 @@
         private const ushort HELPRICE = 345;
         private const ushort CCHPRICE = 550;
         private const ushort CMLPRICE = 580;
+        private const ushort WORKERHEALERPRICE = 456;
+        private const ushort WORKERLOOTERPRICE = 270;
+        private const ushort WORKERTRAINERPRICE = 333;
 
         // mem
 
@@ -35,11 +38,21 @@
         /// <returns>current Character</returns>
         public Player OnMarket() {
             bool onMarket = true;
+            string[] locations = {
+                "1) Heiler",
+                "2) Glückspiel",
+                "3) Arena",
+                "4) Verstärkungsmagier",
+                "5) Taverne",
+                "9) Marktplatz verlassen",
+            };
 
             while (onMarket) {
                 Console.Clear();
                 Console.WriteLine("Ihr befindet Euch auf dem Marktplatz.\nWohin wollt Ihr gehen?");
-                Console.WriteLine("1) Heiler\n2) Glückspiel\n3) Arena\n4) Verstärkungsmagier\n9) Marktplatz verlassen");
+                foreach (string location in locations) {
+                    Console.WriteLine(location);
+                }
 
                 //input
                 switch (Console.ReadKey(true).KeyChar) {
@@ -47,6 +60,7 @@
                     case '2': GamblingOverView(); break;
                     case '3': ArenaOverView(); break;
                     case '4': StatPushOverView(); break;
+                    case '5': TavernOverView(); break;
                     case '9': onMarket = false; break;
                     default: continue;
                 }
@@ -355,6 +369,186 @@
             }
         }
 
+        private void TavernOverView() {
+            char trainerFocus = '0';
+            string[] informations = {
+                "In der Taverne könnt ihr Arbeiter einstellen. Arbeiter bezahlt man einmal, dannach bieten diese ihre Dienste gratis an.",
+                "Ein Heiler tut das, was er am besten kann: Heilen.",
+                "Ein Plünderer besorgt Waren und Geld für Euch.",
+                "Ein Trainer kann Körperfähigkeiten permanent verbessern oder Eure exp erhöhen.",
+                "Wollt ihr einen Arbeiter einstellen?"
+            };
+            string[] services = {
+                $"1) Heiler (Preis: {WORKERHEALERPRICE})",
+                $"2) Plünderer (Preis: {WORKERLOOTERPRICE})",
+                $"3) Trainer (Preis: {WORKERTRAINERPRICE})",
+                "9) Zurück zum Marktplatz"
+            };
+            string[] trainerSpezTexts = {
+                "1) Stärke",
+                "2) Inteligents",
+                "3) Geschliglichkeit",
+                "4) Erfahrungsgewinn",
+            };
+
+            while(true) {
+                Console.Clear();
+                foreach(string information in informations) {
+                    Console.WriteLine(information);
+                }
+
+                foreach (string service in services) {
+                    Console.WriteLine(service);
+                }
+
+                switch (Console.ReadKey(true).KeyChar) {
+                    case '1':
+                        if (PlayerGoldEnough(WORKERHEALERPRICE)) { 
+                            WorkerHealer();
+                            return;
+                        } else break;
+                    case '2':
+                        if (PlayerGoldEnough(WORKERLOOTERPRICE)) {
+                            WorkerLooter();
+                            return;
+                        } else break;
+                    case '3':
+                        if (PlayerGoldEnough(WORKERTRAINERPRICE)) {
+                            Console.WriteLine("Auf was soll der Trainer spezialisiert sein?");
+                            foreach (string trainerSpezText in trainerSpezTexts) { Console.WriteLine(trainerSpezText); }
+                            while (!(trainerFocus is 'S' or 'I' or 'D' or 'E')) { 
+                                switch (Console.ReadKey(true).KeyChar) {
+                                    case '1': trainerFocus = 'S'; break;
+                                    case '2': trainerFocus = 'I'; break;
+                                    case '3': trainerFocus = 'D'; break;
+                                    case '4': trainerFocus = 'E'; break;
+                                    default: continue;
+                                }
+                            }
+                            WorkerTrainer(trainerFocus);
+                            return;
+                        } else break;
+                    case '9': return;
+                    default: continue;
+                }
+            }
+        }
+
+        private string CreateWorker() {
+            string name = "";
+
+            Console.WriteLine("Gibt euren Heiler einen Namen (leer lassen für zufälligen Namen): ");
+            name = Console.ReadLine();
+
+            if (String.IsNullOrEmpty(name)) name = GetRndName();
+
+            return name;
+        }
+
+        private void WorkerHealer() {
+            string[] services = {
+                "1) Heilen",
+                "2) Aussteigen",
+                "9) Zurück"
+            };
+            Healer healer = new(CreateWorker());
+
+            while (true) {
+                Thread.Sleep(TIMEOUT);
+                Console.Clear();
+                Console.WriteLine("Was soll {0} (Level: {1}) tun?", healer.Name, healer.Lvl);
+                foreach(string service in services) { Console.WriteLine(service); }
+
+                switch (Console.ReadKey().KeyChar) {
+                    case '1':
+                        short heal = healer.UseService();
+                        Console.WriteLine("{0} HP wurden wiederhergestellt.", heal);
+                        Player.ChangeCurrentHealth(heal);
+                        break;
+                    case '2':
+                        healer.IncreaseService();
+                        break;
+                    case '9': return;
+                    default: continue;
+                }
+            }
+        }
+
+        private void WorkerLooter() {
+            string[] services = {
+                "1) Geld einfordern",
+                "2) Aussteigen",
+                "9) Zurück"
+            };
+            Looter looter = new(CreateWorker());
+
+            while (true) {
+                Thread.Sleep(TIMEOUT);
+                Console.Clear();
+                Console.WriteLine("Was soll {0} (Level: {1}) tun?", looter.Name, looter.Lvl);
+                foreach (string service in services) { Console.WriteLine(service); }
+
+                switch (Console.ReadKey().KeyChar) {
+                    case '1':
+                        ushort gold = looter.UseService();
+                        Console.WriteLine("{0} hat {1} Gold gefunden.", looter.Name, gold);
+                        Player.ChangeAmoutOfGold(gold);
+                        break;
+                    case '2':
+                        looter.IncreaseService();
+                        break;
+                    case '9': return;
+                    default: continue;
+                }
+            }
+        }
+
+        private void WorkerTrainer(char focus) {
+            string[] services = {
+                "1) Trainiern",
+                "9) Zurück"
+            };
+            string fstat = "";
+
+            Trainer trainer = new(CreateWorker(), focus);
+
+            while (true) {
+                Thread.Sleep(TIMEOUT);
+                Console.Clear();
+                Console.WriteLine("Was soll {0} tun?", trainer.Name);
+                foreach (string service in services) { Console.WriteLine(service); }
+
+                switch (Console.ReadKey().KeyChar) {
+                    case '1':
+                        byte increase = trainer.UseService();
+
+                        switch (focus) {
+                            case 'S':
+                                fstat = "Stärke";
+                                Player.Strength += increase;
+                                break;
+                            case 'I':
+                                fstat = "Inteligents";
+                                Player.Intelligents += increase;
+                                break;
+                            case 'D':
+                                fstat = "Geschwindigkeit";
+                                Player.Dexterity += increase;
+                                break;
+                            case 'E':
+                                fstat = "Exp";
+                                Player.Exp[0] += increase;
+                                break;
+                        }
+
+                        Console.WriteLine("{0} steigt um {1}", fstat, increase);
+                        break;
+                    case '9': return;
+                    default: continue;
+                }
+            }
+        }
+
         private bool PlayerGoldEnough(ushort price) {
             if (Player.Gold < price) {
                 NotEnoughMoney();
@@ -370,6 +564,41 @@
         /// </summary>
         private static void NotEnoughMoney() {
             Console.WriteLine("Ihr habt nicht genügend Geld.");
+        }
+
+        /// <summary>
+        /// pick rnd name of array
+        /// </summary>
+        /// <returns>string -> name</returns>
+        private static string GetRndName() {
+            Random r = new();
+            string[] names = {
+                "Adrian", "Simon", "Mario", "Dario", "Raina", "Alexzander", "Krystal", "Azul", "Patrick", "Jovani", "Bruce",
+                "Rodrigo", "Imani", "Konnor", "Moyer", "Kolby", "Jonathan", "Chad", "Brendan", "Dante", "Luis", "Anthony",
+                "Jayce", "Kobe", "Ben", "Quinton", "Jeffery", "Keaton", "Wyatt", "Jorden", "Gideon", "Sonny", "Rolando",
+                "Luciano", "Solomon", "Dominique", "Brayden", "Henry", "Hugo", "Damon", "Cory", "Gerald", "Dax", "Marlon",
+                "Keagan", "Noah", "Immanuel", "Connor", "Shawn", "Payton", "Oliver", "Edward", "Neil", "Simeon", "Gunner",
+                "Peter", "Ariel", "Ace", "Ryland", "Kristian", "Ross", "Jaquan", "Zander", "Trenton", "Cohen", "Tristan",
+                "Elisha", "Peyton", "Rodolfo", "Myles", "Maximilian", "Kingston", "Joseph", "Zane","Rylee", "Desmond",
+                "Sage", "Stanley", "Makai", "Aryan", "Rishi", "Caden", "Drake", "James", "Omari", "Dennis", "Reece", "Miguel",
+                "William", "Evan", "Chaz", "Jonas", "Jett", "Tyree", "Gilbert", "Dylan", "Sebastian", "Andrew", "Malik",
+                "Yael", "Dangelo", "Winston", "Savion", "Dale", "Gauge", "Jovanni", "Blake", "Kadin", "Robert", "Landon", 
+                "Royce", "Joe", "Rudy", "Jamarcus", "Vaughn", "Zackary", "Gaven","Ignacio", "Terrance", "Bernabé", "Wilfredo",
+                "Rita", "Jacob", "Ariadna", "Abrahán", "Julián", "Marina", "Abelardo", "Federico", "Ildefonso", "Natalia",
+                "Honorio", "Honorato", "Joaquín", "Manuel", "Rosendo", "Julio", "Victoria", "Trinidad", "Esdras", "Noé", "Eva",
+                "Amparo", "Godofredo", "Conrado", "Abdón", "Soledad", "Ruperto", "Carmelo", "Marta", "Ángel", "Fausto",
+                "Bartolomé", "León", "Tarsicio", "Victorio", "Nicanor", "Marciano", "Heliodoro", "Oto", "Primo", "Timoteo",
+                "Ángeles", "Fabiola", "Clara", "Diego", "Cándida", "Salvador", "Rosalia", "Mónica", "Nuria", "Pilar", "Claudio",
+                "Alejandra", "Moisés", "Cristóbal", "Blas", "Augusto", "Poncio", "Guillermo", "Fabio", "Narciso", "Aurelio",
+                "Acacio", "Emiliano", "Teodosia", "Nicolás", "Dimas", "Daniel", "Guzmán", "Gonzalo", "Tomás", "Salvio", "Ubaldo",
+                "Miqueas", "Úrsula", "Justino", "Eugenia", "Adón", "Ramiro", "Casimiro", "Agustín", "Odón", "Baldomero", "Blanca",
+                "Ananías", "Leocadia", "Elías", "Jordi", "Cayetano", "Felipe", "Amadeo", "Elvira", "Humberto", "Colombo", "Benji",
+                "Cody", "Sam", "Sydney", "Sasha", "Riley", "Panda", "Luke", "Piper", "Leo", "Athena", "Sandy", "Miley", "Shadow",
+                "Roxie", "Wrigley", "Cocoa", "Ollie", "Raven", "Rosie", "Layla", "Lily", "Tank", "Oscar", "Foster", "Hank",
+                "Tiger", "Rex", "Sally", "Lulu", "Tucker", "Chanel", "Grace", "Simba", "Ruby", "Millie", "Dixie", "Hunter", "Chase",
+            };
+
+            return names[r.Next(names.Length - 1)];
         }
     }
 }

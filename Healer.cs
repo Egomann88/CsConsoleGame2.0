@@ -43,7 +43,7 @@ namespace CsConsoleGame
 			}
 		}
 
-		public ushort UseService() {
+		public short UseService() {
 			Random r = new();
 			byte roll = (byte)r.Next(1, 21);
 			byte[] healPerLevel = new byte[5] { 5, 10, 15, 20, 30 };
