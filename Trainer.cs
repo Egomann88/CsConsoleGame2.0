@@ -3,15 +3,12 @@
     internal class Trainer : Worker
     {
         //const
-        public Trainer(string name, char focus, ushort price) :base(name) {
+        public Trainer(string name, char focus) :base(name) {
             Focus = focus;
-            Price = price;
         }
 
         //meth
         public char Focus { get; } // S = Strength; I = Inteligents; D = Dex; E = Exp
-
-        public ushort Price { get; }
 
         public byte UseService() {
             Random r = new();
