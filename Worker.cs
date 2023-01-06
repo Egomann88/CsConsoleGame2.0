@@ -3,13 +3,11 @@
     internal class Worker
     {
         //const
-        public Worker(ushort price, string name) {
-            Price = price;
+        public Worker(string name) {
             Name = name;
         }
 
         //meth
         public string Name { get; set; }
-        public ushort Price { get; }
     }
 }

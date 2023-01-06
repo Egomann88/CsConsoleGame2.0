@@ -13,7 +13,7 @@ namespace CsConsoleGame
         const byte MAXLVL = 5;  // max level for looter
 
 		//const
-		public Looter(ushort price, string name, byte lvl = 1) : base(price, name) {
+		public Looter(string name, byte lvl = 1) : base(name) {
 			Lvl = lvl;
 
 			SetUpgradeCost();
