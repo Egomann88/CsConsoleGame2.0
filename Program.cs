@@ -53,8 +53,8 @@ static Player Dungeon(Player p) {
 static Player MainMenu() {
     while (true) {
         // in while, because when all chars deleted - load and delete is still shown
-    string mainMenuText = "1) Charakter erstellen\n";
-    if (Player.HasPlayers()) mainMenuText += "2) Charakter laden\n3) Charakter löschen\n";
+        string mainMenuText = "1) Charakter erstellen\n";
+        if (Player.HasPlayers()) mainMenuText += "2) Charakter laden\n3) Charakter löschen\n";
 
         Console.Clear();
         Console.WriteLine("Hauptmenü\n{0}9) Spiel beenden", mainMenuText);
@@ -112,15 +112,19 @@ do {
             //case '4': player.Gold += 9999; player.Lvl += 9; player.Strength += 80; break;
             case '6': player.Name = Player.ChangeName(); break;
             case '7': Player.SavePlayer(player); continue;  // call sensitive methods with classname
-            case '8': chAlive = false; continue;
+            case '8':
             case '9':
+                char inputEarly = input;
+
                 do {
                     Console.WriteLine("Charakter speichern? [j/n]");
                     input = Console.ReadKey(true).KeyChar;
                 } while (input != 'j' && input != 'n');
 
                 if (input == 'j') Player.SavePlayer(player);  // call sensitive methods with classname
-                Environment.Exit(0); // stops appligation
+
+                if(inputEarly == '8') chAlive = false;  // gets to main menu
+                else Environment.Exit(0); // stops appligation
 
                 continue;
             default: break; // nothing happens
