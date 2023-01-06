@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CsConsoleGame
 {
-	internal class Healer : Worker
+	internal class Healer : Worker, IWorkerServices
 	{
 		//class
 		const byte MAXLVL = 5;  // max level for looter
@@ -16,12 +16,18 @@ namespace CsConsoleGame
 			Lvl = lvl;
 
 			SetUpgradeCost();
-		}
 
-		//meth
-		public byte Lvl { get; set; }
+            /*
+			 WorkerServices w = new(this);
 
-		private ushort UpgradeCost { get; set; }
+			 w.SetUpgradeCost();
+			 */
+        }
+
+        //meth
+        public byte Lvl { get; set; }
+
+		public ushort UpgradeCost { get; set; }
 
 		public void IncreaseService() {
 			if (Lvl == MAXLVL) {
@@ -44,10 +50,10 @@ namespace CsConsoleGame
 			byte heal = 0;
 
 			// convert to byte -> cannot be bigger than byte
-			if (roll == 1) heal = (byte)(healPerLevel[Lvl - 1] * 0.4);
-			else if (roll < 11) heal = (byte)(healPerLevel[Lvl - 1] * 0.7);
-			else if (roll < 20) heal = healPerLevel[Lvl - 1];
-			else heal = (byte)(healPerLevel[Lvl - 1] * 1.3);
+			if (roll == 1) heal = (byte)(healPerLevel[Lvl - 1] * 0.4);	// 40 %
+			else if (roll < 11) heal = (byte)(healPerLevel[Lvl - 1] * 0.7);	// 70 %
+			else if (roll < 20) heal = healPerLevel[Lvl - 1];	// 100 %
+			else heal = (byte)(healPerLevel[Lvl - 1] * 1.3);	// 130 %
 
 			return heal;
 		}

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CsConsoleGame
 {
-    internal class Looter : Worker
+    internal class Looter : Worker, IWorkerServices
     {
         //class
         const byte MAXLVL = 5;  // max level for looter
@@ -22,7 +22,7 @@ namespace CsConsoleGame
 		//meth
 		public byte Lvl { get; set; }
 
-        private ushort UpgradeCost { get; set; }
+        public ushort UpgradeCost { get; set; }
 
         public void IncreaseService() {
             if(Lvl == MAXLVL) {
