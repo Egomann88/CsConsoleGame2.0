@@ -11,11 +11,5 @@ namespace CsConsoleGame
         string Name { get; set; }
         byte Lvl { get; set; }
         ushort UpgradeCost { get; set; }
-
-        /*
-         * not working in donet 7.3?
-        public void IncreaseService() { }
-        private void SetUpgradeCost() { }
-        */
     }
 }
