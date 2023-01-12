@@ -77,6 +77,9 @@ namespace CsConsoleGame
             }
         }
         
+        /// <summary>
+        /// useless -> only for certain methods
+        /// </summary>
         public Player() { }
 
         // meth

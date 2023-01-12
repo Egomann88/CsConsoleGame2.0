@@ -67,9 +67,11 @@ namespace CsConsoleGame
                 switch (input) {
                     case '1': return Player.CreatePlayer();
                     case '2':
+                        // check is has player to prevent future problems
                         if (Player.HasPlayers()) return Player.GetPlayers(false);
                         else break;
                     case '3':
+                        // check is has player to prevent future problems
                         if (Player.HasPlayers()) Player.GetPlayers(true);
                         break;
                     case '9': Environment.Exit(-1); break;
@@ -111,7 +113,6 @@ namespace CsConsoleGame
                             break;
                         case '2': player.ShowPlayer(); continue;    // continue skips autosave
                         case '3': player = marketplace.OnMarket(); break;
-                        //case '4': player.Gold += 9999; player.Lvl += 9; player.Strength += 80; break;
                         case '6': player.Name = Player.ChangeName(); break;
                         case '7': Player.SavePlayer(player); continue;  // call sensitive methods with classname
                         case '8':
