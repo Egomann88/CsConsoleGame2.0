@@ -17,6 +17,7 @@ namespace CsConsoleGame
         private const ushort STRPRICE = 390;
         private const ushort INTPRICE = 360;
         private const ushort DEXPRICE = 410;
+        private const ushort DEFPRICE = 325;
         private const ushort HELPRICE = 345;
         private const ushort CCHPRICE = 550;
         private const ushort CMLPRICE = 580;
@@ -309,6 +310,16 @@ namespace CsConsoleGame
         /// </summary>
         private void StatPushOverView() {
             ushort price = 0;
+            string[] stats = {
+                $"1) +1 Stärke (Preis: {STRPRICE} Gold)",
+                $"2) +1 Inteligents (Preis: {INTPRICE} Gold)",
+                $"3) +1 Geschicklichkeit (Preis: {DEXPRICE} Gold)",
+                $"4) +1 Verteididung (Preis {DEFPRICE} Gold)",
+                $"5) +5 Max Leben (Preis: {HELPRICE} Gold)",
+                $"6) Krit. Chance + 2 % (Preis: {CCHPRICE} Gold)",
+                $"7) Krit. Schaden + 5 % (Preis: {CMLPRICE} Gold)",
+                "9) Zurück zum Marktplatzs"
+            };
 
             if (Player.Lvl < LVLFORHIGHUSES) {
                 Console.Clear();
@@ -322,9 +333,7 @@ namespace CsConsoleGame
                 Console.WriteLine("Der Verstärkungsmagier kann euch, auf eine neue Ebene der Macht bringen, " +
                     "für einen kleinen Betrag natürlich.");
                 Console.WriteLine("Euer Gold: {0}", Player.Gold);
-                Console.WriteLine("1) +1 Stärke (Preis: {0} Gold)\n2) +1 Inteligents (Preis: {1} Gold)\n3) +1 Geschicklichkeit (Preis: {2} Gold)\n" +
-                  "4) +5 Max Leben (Preis: {3} Gold)\n5) Krit. Chance + 2 % (Preis: {4} Gold)\n6) Krit. Schaden + 5 % (Preis: {5} Gold)\n" +
-                  "9) Zurück zum Marktplatzs", STRPRICE, INTPRICE, DEXPRICE, HELPRICE, CCHPRICE, CMLPRICE);
+                foreach (string stat in stats) Console.WriteLine(stat);
 
                 // input
                 switch (Console.ReadKey().KeyChar) {
@@ -347,18 +356,24 @@ namespace CsConsoleGame
                         Player.Dexterity++;
                         break;
                     case '4':
+                        price = DEFPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+
+                        Player.Defense++;                       
+                        break;
+                    case '5':
                         price = HELPRICE;
                         if (!PlayerGoldEnough(price)) continue;
 
                         Player.Health[1] += 5;
                         break;
-                    case '5':
+                    case '6':
                         price = CCHPRICE;
                         if (!PlayerGoldEnough(price)) continue;
 
                         Player.CritChance += 2;
                         break;
-                    case '6':
+                    case '7':
                         price = CMLPRICE;
                         if (!PlayerGoldEnough(price)) continue;
 
