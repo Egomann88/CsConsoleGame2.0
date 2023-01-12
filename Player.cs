@@ -43,6 +43,7 @@ namespace CsConsoleGame
             Class = cl;
             Exp = new uint[2] { 0, 30 };
             Lvl = 1;
+            Defense = 1;
 
             switch (Class) {
                 case 1: // warrior
@@ -263,6 +264,7 @@ namespace CsConsoleGame
                 CritMult += 0.10F;
             }
 
+            if (Lvl % 5 == 0) Defense++;
             if (Lvl % 2 == 0 || Lvl % 3 == 0) Strength++;
             if (Lvl % 3 == 0) IncreaseClassStat();
         }

@@ -19,6 +19,7 @@ namespace CsConsoleGame
             bool isPlayerFirst = GetFirstMove();
             byte playerTurns = GetNumOfTurns(true);
             byte enemyTurns = GetNumOfTurns(false);
+            Player.IsDefending = false; // Disable defense, to prevent it being used from an earlier fight
 
             Console.Clear();
             Console.WriteLine("Ein {0} seit auf der Hut.", Enemy.Name);
@@ -90,13 +91,20 @@ namespace CsConsoleGame
             ushort chance2Hit = (ushort)(75 + Player.Dexterity - Enemy.Dexterity); // 75 % base value + char dex - enemy dex (dodge chance)
             char input = '0';   // player input
             bool giveUp = false;
+            string[] textes = {
+                "1) Angreifen",
+                $"2) Heilen (Abklingzeit: {coolDown[0]} Runden)",
+                $"3) {ultimateName} (Abklingzeit: {coolDown[1]} Runden)",
+                "4) Verteidigen",
+                "5) Aufgeben"
+            };
 
             do {
                 Console.Clear();
-                Console.WriteLine("{0}, was wollt ihr machen?\nLeben: {1} / {2}",
-                  Player.Name, Player.Health[0], Player.Health[1]);
-                Console.Write("1) Angreifen\n2) Heilen (Abklingzeit: {0} Runden)\n" +
-                  "3) {1} (Abklingzeit: {2} Runden)\n4) Aufgeben", coolDown[0], ultimateName, coolDown[1]);
+                Console.WriteLine("{0}, was wollt ihr machen?\nLeben: {1} / {2}", Player.Name, Player.Health[0], Player.Health[1]);
+                foreach (string text in textes) {
+                    Console.WriteLine(text);    // show textes
+                }
                 input = Console.ReadKey(true).KeyChar; // do not show input in console
                 Console.Clear();
                 switch (input) {
@@ -111,11 +119,23 @@ namespace CsConsoleGame
                             chance2Hit = 100; // Crit is always an hit
                         }
 
+                        if (Enemy.IsDefending) {
+                            if (Enemy.Defense >= damage) {
+                                damage = 0;
+                                actionText += $"{Enemy.Name} blockt den kompletten Schaden!\n";
+                            } else {
+                                damage -= Enemy.Defense;
+                                actionText += $"{Enemy.Name} blockt {Enemy.Defense} Schaden!\n";
+                            }
+                            Enemy.IsDefending = false;
+                        }
+
                         if (!CritDodge(chance2Hit)) {
                             actionText += $"{Enemy.Name} ist ausgewichen!\n";
                             damage = 0;
-                        } else actionText += $"{damage} Schaden!";
-
+                        } else if (damage > 0) {
+                            actionText += $"{damage} Schaden!";
+                        }
 
                         Enemy.ChangeCurrentHealth(Convert.ToInt16(-damage));
                         break;
@@ -145,15 +165,34 @@ namespace CsConsoleGame
                             chance2Hit = 100; // Crit is always an hit
                         }
 
+                        if (Enemy.IsDefending) {
+                            if (Enemy.Defense >= damage) {
+                                damage = 0;
+                                actionText += $"{Enemy.Name} blockt den kompletten Schaden!\n";
+                            } else {
+                                damage -= Enemy.Defense;
+                                actionText += $"{Enemy.Name} blockt {Enemy.Defense} Schaden!\n";
+                            }
+                            Enemy.IsDefending = false;
+                        }
+
                         if (!CritDodge(chance2Hit + ULTHITBONUS)) { // ultimate has extra hit chance
                             actionText += $"{Enemy.Name} ist ausgewichen!\n";
                             damage = 0;
-                        } else actionText += $"{damage} Schaden!";
+                        } else if (damage > 0) {
+                            actionText += $"{damage} Schaden!";
+                        }
 
                         Enemy.ChangeCurrentHealth(Convert.ToInt16(-damage));
                         coolDown[1] = ULTIMATECOOLDOWN;    // set ulti cooldown
                         break;
                     case '4':
+                        if (!Player.IsDefending) {
+                            actionText = $"{Player.Name} verteidigt sich.";
+                            Player.IsDefending = true;
+                        } else continue;
+                        break;
+                    case '5':
                         actionText = $"{Player.Name} gibt auf.\n";
                         giveUp = true;
                         break;

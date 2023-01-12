@@ -23,6 +23,10 @@ namespace CsConsoleGame
         /// </summary>
         virtual public short[] Health { get; set; }
 
+        public byte Defense { get; set; }
+
+        public bool IsDefending { get; set; } = false;
+
         public int Gold { get; set; }
 
         /// <summary>
