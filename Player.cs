@@ -175,7 +175,7 @@ namespace CsConsoleGame
                     Console.WriteLine("\nIhr benutzt denselben Namen zweimal. Das ist nicht möglich.");
                     Thread.Sleep(500);
                     continue;
-                } else if (name == "" || name == " ") {
+                } else if (string.IsNullOrWhiteSpace(name)) {
                     Console.WriteLine("\nDer Name darf nicht leer sein!");
                     Thread.Sleep(500);
                     continue;
