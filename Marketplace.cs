@@ -462,7 +462,7 @@ namespace CsConsoleGame
         private void WorkerHealer() {
             string[] services = {
                 "1) Heilen",
-                "2) Aussteigen",
+                "2) Aufsteigen",
                 "9) Zurück"
             };
             Healer healer = new Healer(CreateWorker());
@@ -473,7 +473,7 @@ namespace CsConsoleGame
                 Console.WriteLine("Was soll {0} (Level: {1}) tun?", healer.Name, healer.Lvl);
                 foreach(string service in services) { Console.WriteLine(service); }
 
-                switch (Console.ReadKey().KeyChar) {
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1':
                         short heal = healer.UseService();
                         Console.WriteLine("{0} HP wurden wiederhergestellt.", heal);
@@ -496,7 +496,7 @@ namespace CsConsoleGame
         private void WorkerLooter() {
             string[] services = {
                 "1) Geld einfordern",
-                "2) Aussteigen",
+                "2) Aufsteigen",
                 "9) Zurück"
             };
             Looter looter = new Looter(CreateWorker());
@@ -507,7 +507,7 @@ namespace CsConsoleGame
                 Console.WriteLine("Was soll {0} (Level: {1}) tun?", looter.Name, looter.Lvl);
                 foreach (string service in services) { Console.WriteLine(service); }
 
-                switch (Console.ReadKey().KeyChar) {
+                switch (Console.ReadKey(true).KeyChar) {
                     case '1':
                         ushort gold = looter.UseService();
                         Console.WriteLine("{0} hat {1} Gold gefunden.", looter.Name, gold);
