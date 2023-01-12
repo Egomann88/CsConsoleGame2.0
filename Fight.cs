@@ -218,7 +218,7 @@ namespace CsConsoleGame
                         break;
                     case '4':
                         if (!Player.IsDefending) {
-                            actionText = $"{Player.Name} verteidigt sich.";
+                            actionText += $"{Player.Name} verteidigt sich.\n";
                             Player.IsDefending = true;
                         } else continue;
                         break;
@@ -249,67 +249,33 @@ namespace CsConsoleGame
         /// Simulates the round of the enemy
         /// </summary>
         protected void EnemyTurn() {
+            Thread.Sleep(300);
             Random r = new Random();
+            byte numberPool = 4;    // Attack, Heal, Ultimate, Defend
             short[] coolDown = GetCoolDown(false);  // apply current cooldowns
             ushort chance2Hit = (ushort)(75 + Enemy.Dexterity - Player.Dexterity); // 75 % base value - char dex (dodge chance)
             string actionText = "";
             ushort damage = 0;
             byte rnd = 0;
 
-            rnd = Convert.ToByte(r.Next(1, 5));    // Attack, Heal, Ultimate, Defend
-            
-            switch (rnd) {
-                case 1:
-                    damage = Enemy.Strength;
-                    actionText = $"{Enemy.Name} greift an.\n";
+            if (Enemy.IsDefending) { 
+                numberPool--;
+                if (coolDown[1] > 0) {
+                    numberPool--;
+                    if (coolDown[0] > 0) numberPool--;
+                }
+            }
 
-                    if (CritDodge(Enemy.CritChance)) {
-                        damage = Convert.ToUInt16(Math.Round(damage * Enemy.CritMult));
-                        actionText += " Kritischer Treffer!\n";
-                        chance2Hit = 100; // Crit is always an hit
-                    }
-
-                    if (Player.IsDefending) {
-                        if (Player.Defense >= damage) {
-                            damage = 0;
-                            actionText += $"{Player.Name} blockt den kompletten Schaden!";
-                        } else {
-                            damage -= Player.Defense;
-                            actionText += $"{Player.Name} blockt {Player.Defense} Schaden!";
-                        }
-                        Player.IsDefending = false;
-                    }
-
-                    if (!CritDodge(chance2Hit)) {
-                        actionText += $"{Player.Name} ist ausgewichen!\n";
-                        damage = 0;
-                    } else if (damage > 0) {
-                        actionText += $"{damage} Schaden!";
-                    }
-
-                    Player.ChangeCurrentHealth(Convert.ToInt16(-damage));
-                    break;
-                case 2:
-                    if (coolDown[0] > 0) EnemyTurn();   // new roll if cooldown is active
-
-                    damage = Enemy.Intelligents;
-                    actionText += $"{Enemy.Name} heilt sich.\n{damage} Leben wiederhergestellt.";
-
-                    Enemy.ChangeCurrentHealth(Convert.ToInt16(damage));
-
-                    coolDown[0] = HEALCOOLDOWN;    // set ability cooldown
-                    break;
-                case 3:
-                    if (coolDown[1] > 0) EnemyTurn();   // new roll if cooldown is active
-
-                    if (Enemy.IsDmgUlt) {
-                        // increase dmg with all possible variables
-                        damage = Convert.ToUInt16(Math.Round(Enemy.Strength + Enemy.Dexterity + Enemy.Intelligents * 1.5));
-                        actionText += $"{Enemy.Name} nutzt seine Ultimative Fähigkeit.\n";
+            while (true) {  // repalce recursive method to prevent stackOverflowError
+                rnd = Convert.ToByte(r.Next(1, numberPool + 1));
+                switch (rnd) {
+                    case 1:
+                        damage = Enemy.Strength;
+                        actionText = $"{Enemy.Name} greift an.\n";
 
                         if (CritDodge(Enemy.CritChance)) {
                             damage = Convert.ToUInt16(Math.Round(damage * Enemy.CritMult));
-                            actionText += "Kritischer Treffer!\n";
+                            actionText += " Kritischer Treffer!\n";
                             chance2Hit = 100; // Crit is always an hit
                         }
 
@@ -332,23 +298,66 @@ namespace CsConsoleGame
                         }
 
                         Player.ChangeCurrentHealth(Convert.ToInt16(-damage));
-                    } else {
-                        // Heals himself with 1.2 of his Intelligents + 20 % of his max Health
-                        damage = Convert.ToUInt16(Math.Round(Enemy.Intelligents * 1.2 + Enemy.Health[1] / 5));
-                        actionText += $"{Enemy.Name} heilt sich enorm.\n{damage} Leben wiederhergestellt.";
-                        Enemy.ChangeCurrentHealth(Convert.ToInt16(damage), true);   // overheal allowed
-                    }
+                        break;
+                    case 2:
+                        if (coolDown[0] > 0) continue;   // new roll if cooldown is active
 
-                    coolDown[1] = ULTIMATECOOLDOWN;    // set ability cooldown
-                    break;
-                case 4:
-                    if (Enemy.IsDefending) EnemyTurn();
+                        damage = Enemy.Intelligents;
+                        actionText += $"{Enemy.Name} heilt sich.\n{damage} Leben wiederhergestellt.";
 
-                    actionText = $"{Enemy.Name} verteidigt sich.";
-                    Enemy.IsDefending = true;
-                    break;
+                        Enemy.ChangeCurrentHealth(Convert.ToInt16(damage));
+
+                        coolDown[0] = HEALCOOLDOWN;    // set ability cooldown
+                        break;
+                    case 3:
+                        if (coolDown[1] > 0) continue;   // new roll if cooldown is active
+
+                        if (Enemy.IsDmgUlt) {
+                            // increase dmg with all possible variables
+                            damage = Convert.ToUInt16(Math.Round(Enemy.Strength + Enemy.Dexterity + Enemy.Intelligents * 1.5));
+                            actionText += $"{Enemy.Name} nutzt seine Ultimative Fähigkeit.\n";
+
+                            if (CritDodge(Enemy.CritChance)) {
+                                damage = Convert.ToUInt16(Math.Round(damage * Enemy.CritMult));
+                                actionText += "Kritischer Treffer!\n";
+                                chance2Hit = 100; // Crit is always an hit
+                            }
+
+                            if (Player.IsDefending) {
+                                if (Player.Defense >= damage) {
+                                    damage = 0;
+                                    actionText += $"{Player.Name} blockt den kompletten Schaden!\n";
+                                } else {
+                                    damage -= Player.Defense;
+                                    actionText += $"{Player.Name} blockt {Player.Defense} Schaden!\n";
+                                }
+                                Player.IsDefending = false;
+                            }
+
+                            if (!CritDodge(chance2Hit)) {
+                                actionText += $"{Player.Name} ist ausgewichen!\n";
+                                damage = 0;
+                            } else if (damage > 0) {
+                                actionText += $"{damage} Schaden!";
+                            }
+
+                            Player.ChangeCurrentHealth(Convert.ToInt16(-damage));
+                        } else {
+                            // Heals himself with 1.2 of his Intelligents + 20 % of his max Health
+                            damage = Convert.ToUInt16(Math.Round(Enemy.Intelligents * 1.2 + Enemy.Health[1] / 5));
+                            actionText += $"{Enemy.Name} heilt sich enorm.\n{damage} Leben wiederhergestellt.";
+                            Enemy.ChangeCurrentHealth(Convert.ToInt16(damage), true);   // overheal allowed
+                        }
+
+                        coolDown[1] = ULTIMATECOOLDOWN;    // set ability cooldown
+                        break;
+                    case 4:
+                        actionText = $"{Enemy.Name} verteidigt sich.";
+                        Enemy.IsDefending = true;
+                        break;
+                }
+                break;
             }
-
             coolDown = coolDown.Select(x => --x).ToArray();   // decrease cooldowns by one
             Console.WriteLine(actionText);
             ENEMYCOOLDOWN = coolDown;  // save Enemycooldown for next round
