@@ -14,13 +14,13 @@ namespace CsConsoleGame
         private const int SHORTTIMEOUT = 800;
         private const int TIMEOUT = 1200;
         private const int LONGTIMEOUT = 2000;
-        private const ushort STRPRICE = 390;
-        private const ushort INTPRICE = 360;
-        private const ushort DEXPRICE = 410;
-        private const ushort DEFPRICE = 325;
-        private const ushort HELPRICE = 345;
-        private const ushort CCHPRICE = 550;
-        private const ushort CMLPRICE = 580;
+        private const ushort STRPRICE = 500;
+        private const ushort INTPRICE = 400;
+        private const ushort DEXPRICE = 470;
+        private const ushort DEFPRICE = 350;
+        private const ushort HELPRICE = 360;
+        private const ushort CCHPRICE = 600;
+        private const ushort CMLPRICE = 620;
         private const ushort WORKERHEALERPRICE = 456;
         private const ushort WORKERLOOTERPRICE = 270;
         private const ushort WORKERTRAINERPRICE = 333;
@@ -183,6 +183,7 @@ namespace CsConsoleGame
                     case '9': return;
                     default: continue;
                 }
+                Player.SavePlayer(Player);  // save to prevent exploting
             }
         }
 
@@ -236,7 +237,7 @@ namespace CsConsoleGame
             Console.Write("\n\nDas Ergebnis ist");
             for (byte i = 0; i < 3; i++) {
                 Console.Write(".");
-                Thread.Sleep(SHORTTIMEOUT - 200); // 0.6s * 3 = 1.8s
+                Thread.Sleep(SHORTTIMEOUT - 300); // 0.5s * 3 = 1.5s
             }
 
             if (r.Next(1, 3) == 1) {
