@@ -446,12 +446,10 @@ namespace CsConsoleGame
         /// </summary>
         /// <returns>string -> name</returns>
         private string CreateWorker() {
-            string name = "";
-
             Console.WriteLine("Gibt euren Arbeiter einen Namen (leer lassen für zufälligen Namen): ");
-            name = Console.ReadLine();
+            string name = Console.ReadLine();
 
-            if (String.IsNullOrEmpty(name)) name = GetRndName();
+            if (string.IsNullOrEmpty(name)) name = GetRndName();
 
             return name;
         }
