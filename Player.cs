@@ -159,10 +159,9 @@ namespace CsConsoleGame
         /// </summary>
         /// <returns>(new) name</returns>
         public static string ChangeName() {
-            bool valid = false;
             string name = "";
 
-            while (!valid) {
+            while (true) {
                 Console.Clear();
                 Console.WriteLine("Geben Sie den Namen ihres Charakters ein:");
                 name = Console.ReadLine();
@@ -181,13 +180,13 @@ namespace CsConsoleGame
                     continue;
                 }
 
-                valid = true;
                 // convert to char array of the string
                 char[] letters = name.ToCharArray();
                 // upper case the first char
                 letters[0] = char.ToUpper(letters[0]);
                 // put array back together
                 name = new string(letters);
+                break;
             }
 
             return name;
@@ -210,10 +209,9 @@ namespace CsConsoleGame
         /// infoscreen for player
         /// </summary>
         public void ShowPlayer() {
-            string cl = GetClassName();
             string[] stats = {
                 $"Name:\t\t\t{Name}",
-                $"Klasse:\t\t\t{cl}",
+                $"Klasse:\t\t\t{GetClassName()}",
                 $"Level:\t\t\t{Lvl}",
                 $"Exp:\t\t\t{Exp[0]} / {Exp[1]}",
                 $"Leben:\t\t\t{Health[0]} / {Health[1]}",
