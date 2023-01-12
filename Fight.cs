@@ -12,6 +12,7 @@ namespace CsConsoleGame
         protected const byte ULTHITBONUS = 20;  // 20 % hit bonus for Ultimate
         protected const int SHORTTIMEOUT = 800;
         protected const int TIMEOUT = 1200;
+        protected const int LONGTIMEOUT = 2000;
         protected short[] PLAYERCOOLDOWN = new short[] { HEALCOOLDOWN, ULTIMATECOOLDOWN };  // Heal, Ult
         protected short[] ENEMYCOOLDOWN = new short[] { HEALCOOLDOWN, ULTIMATECOOLDOWN }; // Heal, Ult
 
@@ -249,7 +250,6 @@ namespace CsConsoleGame
         /// Simulates the round of the enemy
         /// </summary>
         protected void EnemyTurn() {
-            Thread.Sleep(300);
             Random r = new Random();
             byte numberPool = 4;    // Attack, Heal, Ultimate, Defend
             short[] coolDown = GetCoolDown(false);  // apply current cooldowns
@@ -364,7 +364,7 @@ namespace CsConsoleGame
             coolDown = coolDown.Select(x => --x).ToArray();   // decrease cooldowns by one
             Console.WriteLine(actionText);
             ENEMYCOOLDOWN = coolDown;  // save Enemycooldown for next round
-            Thread.Sleep(TIMEOUT);
+            Thread.Sleep(LONGTIMEOUT);
         }
 
         /// <summary>
