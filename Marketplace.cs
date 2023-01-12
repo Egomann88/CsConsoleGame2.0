@@ -21,6 +21,7 @@ namespace CsConsoleGame
         private const ushort HELPRICE = 360;
         private const ushort CCHPRICE = 600;
         private const ushort CMLPRICE = 620;
+        private const ushort EXPPRICE = 300;
         private const ushort WORKERHEALERPRICE = 456;
         private const ushort WORKERLOOTERPRICE = 270;
         private const ushort WORKERTRAINERPRICE = 333;
@@ -319,6 +320,7 @@ namespace CsConsoleGame
                 $"5) +5 Max Leben (Preis: {HELPRICE} Gold)",
                 $"6) Krit. Chance + 2 % (Preis: {CCHPRICE} Gold)",
                 $"7) Krit. Schaden + 5 % (Preis: {CMLPRICE} Gold)",
+                $"8) +150 Exp (Preis: {EXPPRICE} Gold)",
                 "9) Zurück zum Marktplatzs"
             };
 
@@ -379,6 +381,12 @@ namespace CsConsoleGame
                         if (!PlayerGoldEnough(price)) continue;
 
                         Player.CritMult += 0.05F;
+                        break;
+                    case '8':
+                        price = EXPPRICE;
+                        if (!PlayerGoldEnough(price)) continue;
+
+                        Player.Exp[0] += 150;
                         break;
                     case '9': return;
                     default: continue;
