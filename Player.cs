@@ -136,12 +136,18 @@ namespace CsConsoleGame
         public static Player CreatePlayer() {
             string name = "";
             byte cl = 0;
+            string[] classes = {
+                "Was ist die Klasse ihres Charakters?",
+                "1) Krieger",
+                "2) Magier",
+                "3) Schurke"
+            };
 
             name = ChangeName();
 
             do {
                 Console.Clear();
-                Console.WriteLine("Was ist die Klasse ihres Charakters?\n1) Krieger\n2) Magier\n3) Schurke");
+                foreach (string classe in classes) Console.WriteLine(classe);
                 cl = Convert.ToByte(Console.ReadKey(false).KeyChar - 48);
             } while (cl < 1 || cl > 4);
 
