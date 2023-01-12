@@ -183,7 +183,7 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(31 * multiplier)),
                         Convert.ToInt16(Math.Round(31 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(1.8 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(1.9 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(12 * multiplier));
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(38 * multiplier)),
@@ -203,7 +203,7 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(43 * multiplier)),
                         Convert.ToInt16(Math.Round(43 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(2 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(2.2 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(68 * multiplier));
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(74 * multiplier)),
@@ -243,7 +243,7 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(66 * multiplier)),
                         Convert.ToInt16(Math.Round(66 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(2.2 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(2.6 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(160 * multiplier));
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(140 * multiplier)),
@@ -263,11 +263,11 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(74.4 * multiplier)),
                         Convert.ToInt16(Math.Round(74.4 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(2 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(2.6 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(140 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(160 * multiplier)),
-                        Convert.ToUInt16(Math.Round(160 * multiplier))
+                        Convert.ToUInt16(Math.Round(180 * multiplier)),
+                        Convert.ToUInt16(Math.Round(180 * multiplier))
                     };
                     IsDmgUlt = true;
                     break;
@@ -283,11 +283,11 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(76 * multiplier)),
                         Convert.ToInt16(Math.Round(76 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(1.4 * multiplier));
-                    Gold = Convert.ToInt32(Math.Round(36 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(4.2 * multiplier));
+                    Gold = Convert.ToInt32(Math.Round(37 * multiplier));
                     Exp = new uint[] {
-                        Convert.ToUInt16(Math.Round(225 * multiplier)),
-                        Convert.ToUInt16(Math.Round(225 * multiplier))
+                        Convert.ToUInt16(Math.Round(300 * multiplier)),
+                        Convert.ToUInt16(Math.Round(300 * multiplier))
                     };
                     IsDmgUlt = false;
                     break;
@@ -303,7 +303,7 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(60 * multiplier)),
                         Convert.ToInt16(Math.Round(60 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(0.9 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(3 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(150 * multiplier));
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(270 * multiplier)),
