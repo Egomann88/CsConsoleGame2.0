@@ -257,12 +257,15 @@ namespace CsConsoleGame
             string actionText = "";
             ushort damage = 0;
             byte rnd = 0;
+            
 
-            if (Enemy.IsDefending) { 
+            if (coolDown[1] > 0) {
                 numberPool--;
-                if (coolDown[1] > 0) {
+                if (coolDown[0] > 0) {
                     numberPool--;
-                    if (coolDown[0] > 0) numberPool--;
+                    if(Enemy.IsDefending) {
+                        numberPool--;
+                    }
                 }
             }
 
@@ -300,6 +303,10 @@ namespace CsConsoleGame
                         Player.ChangeCurrentHealth(Convert.ToInt16(-damage));
                         break;
                     case 2:
+                        actionText = $"{Enemy.Name} verteidigt sich.";
+                        Enemy.IsDefending = true;
+                        break;
+                    case 3:
                         if (coolDown[0] > 0) continue;   // new roll if cooldown is active
 
                         damage = Enemy.Intelligents;
@@ -309,7 +316,7 @@ namespace CsConsoleGame
 
                         coolDown[0] = HEALCOOLDOWN;    // set ability cooldown
                         break;
-                    case 3:
+                    case 4:
                         if (coolDown[1] > 0) continue;   // new roll if cooldown is active
 
                         if (Enemy.IsDmgUlt) {
@@ -350,10 +357,6 @@ namespace CsConsoleGame
                         }
 
                         coolDown[1] = ULTIMATECOOLDOWN;    // set ability cooldown
-                        break;
-                    case 4:
-                        actionText = $"{Enemy.Name} verteidigt sich.";
-                        Enemy.IsDefending = true;
                         break;
                 }
                 break;
