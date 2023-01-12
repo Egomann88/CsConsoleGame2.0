@@ -351,17 +351,19 @@ namespace CsConsoleGame
                 case 1: // warrior
                         // ult min dmg is 1
                     if (Player.Strength * 2 + (Player.Intelligents / 2) - Math.Round(RoundCount * 1.2) <= 0) damage = 1;
-                    else damage = Convert.ToUInt16(Player.Strength * 2 + (Player.Intelligents / 2) - Math.Round(RoundCount * 1.2));
+                    else damage = Convert.ToUInt16(Player.Strength * 2 + (Player.Intelligents / 2) - RoundCount);
                     break;
                 case 2: // mage
                         // if number of shot metors is lesser than 1, just use 1
                     int countMetores = Player.Intelligents * 0.2 < 1 ? 1 : Convert.ToInt32(Player.Intelligents * 0.2);
                     damage = Convert.ToUInt16(Math.Round(Player.Intelligents * 0.6 * countMetores));
+
+                    Player.ChangeCurrentHealth((short)countMetores, false); // heals by the num of meteors
                     break;
                 case 3: // thief
                         // if player has more currrent hp than max hp -> no heal
-                    int hpDmg = Player.Health[1] - Player.Health[0] < 0 ? 0 : Player.Health[1] - Player.Health[0];
-                    damage = Convert.ToUInt16(hpDmg + Player.Dexterity + RoundCount);
+                    int hpDmg = Player.Health[1] - Player.Health[0] < 0 ? 0 : (int)((Player.Health[1] - Player.Health[0]) * 0.8);
+                    damage = Convert.ToUInt16(hpDmg + Player.Dexterity);
 
                     // heals character with a quater of dealt dmg
                     Player.ChangeCurrentHealth((short)(damage / 4), true);  // no decimal number + no round + overheal allowed
