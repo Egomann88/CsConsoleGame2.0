@@ -91,7 +91,7 @@ namespace CsConsoleGame
                     break;
                 case 4:
                     Name = "Todesritter";
-                    Strength = Convert.ToUInt16(Math.Round(15.4 * multiplier));
+                    Strength = Convert.ToUInt16(Math.Round(14.2 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(10 * multiplier));
                     Dexterity = Convert.ToUInt16(Math.Round(12 * multiplier));
                     CritChance = 0.08F * multiplier;
@@ -100,7 +100,7 @@ namespace CsConsoleGame
                         Convert.ToInt16(Math.Round(66 * multiplier)),
                         Convert.ToInt16(Math.Round(75.4 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(2.4 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(2.8 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(234 * multiplier));
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(427 * multiplier)),
@@ -112,14 +112,14 @@ namespace CsConsoleGame
                     Name = "Nachtklinge";
                     Strength = Convert.ToUInt16(Math.Round(11.4 * multiplier));
                     Intelligents = Convert.ToUInt16(Math.Round(8.4 * multiplier));
-                    Dexterity = Convert.ToUInt16(Math.Round(17.4 * multiplier));
+                    Dexterity = Convert.ToUInt16(Math.Round(16.4 * multiplier));
                     CritChance = 0.20F * multiplier;
                     CritMult = base.MaxMultiplier(1.11F, multiplier, true);
                     Health = new short[] {
                         Convert.ToInt16(Math.Round(55 * multiplier)),
                         Convert.ToInt16(Math.Round(55 * multiplier))
                     };
-                    Defense = Convert.ToByte(Math.Round(2.8 * multiplier));
+                    Defense = Convert.ToByte(Math.Round(3 * multiplier));
                     Gold = Convert.ToInt32(Math.Round(350 * multiplier));
                     Exp = new uint[] {
                         Convert.ToUInt16(Math.Round(350 * multiplier)),
